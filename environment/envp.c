@@ -6,7 +6,7 @@
 /*   By: csubires <csubires@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 18:01:29 by csubires          #+#    #+#             */
-/*   Updated: 2024/10/15 11:21:18 by csubires         ###   ########.fr       */
+/*   Updated: 2024/11/07 09:19:16 by csubires         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ t_dllist	*search_env_item(t_dllist *env_list, char *key)
 	t_envp		*env_item;
 
 	tmp_lst = env_list;
+	if (!key || !env_list)
+		return (0);
 	while (tmp_lst)
 	{
 		env_item = (t_envp *)tmp_lst->data;

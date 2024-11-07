@@ -1,5 +1,7 @@
 
 ## Por hacer
+Quitar comentarios antes entrega
+
 
 ## Errores
 a veces no se borra el input prompt

@@ -6,7 +6,7 @@
 /*   By: csubires <csubires@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 18:44:53 by csubires          #+#    #+#             */
-/*   Updated: 2024/11/06 16:24:32 by csubires         ###   ########.fr       */
+/*   Updated: 2024/11/07 09:45:32 by csubires         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,10 +70,16 @@ void	expand_envp(t_shell *shell, int *x)
 	char	*key;
 	char	*value;
 
+	value = 0;
 	key = trim_env_key(shell->input + *x + 1);
-
-
-	value = get_env_value(shell->env_list, key);
+	if (!key)
+	{
+		(*x)++;
+		free(key);
+		return ;
+	}
+	if (key && !is_quotes(key[0]))
+		value = get_env_value(shell->env_list, key);
 	if (!value)
 		empty_value(shell, x, key);
 	else

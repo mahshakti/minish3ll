@@ -6,7 +6,7 @@
 /*   By: csubires <csubires@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 10:01:46 by csubires          #+#    #+#             */
-/*   Updated: 2024/10/15 11:18:52 by csubires         ###   ########.fr       */
+/*   Updated: 2024/11/07 10:19:29 by csubires         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	buildin_exit(t_shell *shell)
 {
-	printf("%s%s%s\n", BLUE, MSG_BYE, ENDC);
 	shell->exit_stat = 0;
 	exit(0);
 }
