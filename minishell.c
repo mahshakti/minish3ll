@@ -6,7 +6,7 @@
 /*   By: csubires <csubires@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 16:19:52 by csubires          #+#    #+#             */
-/*   Updated: 2024/11/06 11:49:38 by csubires         ###   ########.fr       */
+/*   Updated: 2024/11/09 10:31:23 by csubires         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ static t_shell	*init_shell(char *envp[])
 {
 	t_shell	*shell;
 
+	using_history();
 	shell = ft_calloc(1, sizeof(t_shell));
 	if (!shell)
 		print_error(-1, shell, ERR_MALLOC);

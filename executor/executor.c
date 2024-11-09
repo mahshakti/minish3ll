@@ -6,7 +6,7 @@
 /*   By: csubires <csubires@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 11:42:13 by csubires          #+#    #+#             */
-/*   Updated: 2024/11/07 11:44:00 by csubires         ###   ########.fr       */
+/*   Updated: 2024/11/09 11:08:19 by csubires         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,18 +78,22 @@ static void	make_fork(t_shell *shell, t_exec *exec_cmd)
 	child_pid = ft_calloc(1, sizeof(int));
 	*child_pid = fork();
 	if (*child_pid < 0)
+	{
 		print_error(-1, shell, ERR_FORK);
+		return ;
+	}
 	else if (!*child_pid)
 	{
 		restore_signals();
-		if (is_builtin(exec_cmd->executable))
-			execute_builtin(shell, exec_cmd);
-		else
-			execute_bin(shell, exec_cmd);
+		execute_bin(shell, exec_cmd);
+		exit(0);
 	}
 	new_node = dlist_new(child_pid);
 	if (!new_node)
+	{
 		print_error(-1, shell, ERR_FORK);
+		return ;
+	}
 	dlist_add_after(&shell->childrenpid_list, new_node);
 }
 
@@ -100,16 +104,20 @@ void	execute_execs(t_shell *shell)
 
 	tmp_list = shell->exec_list;
 	exec_cmd = (t_exec *)dlist_last(tmp_list)->data;
-	if (!ft_strcmp(exec_cmd->executable, "exit"))
-	{
-		buildin_exit(shell);
-		return ;
-	}
 	tmp_list = shell->exec_list;
 	while (tmp_list)
 	{
 		exec_cmd = (t_exec *)tmp_list->data;
-		make_fork(shell, exec_cmd);
+		if (is_builtin(exec_cmd->executable))
+			execute_builtin(shell, exec_cmd);
+		else
+		{
+			make_fork(shell, exec_cmd);
+			if (exec_cmd->out_fd != 1)
+				close(exec_cmd->out_fd);
+			if (exec_cmd->in_fd != 0)
+				close(exec_cmd->in_fd);
+		}
 		tmp_list = tmp_list->next;
 	}
 	get_children_stat(shell, &shell->childrenpid_list);

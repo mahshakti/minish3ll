@@ -6,7 +6,7 @@
 /*   By: csubires <csubires@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 10:01:16 by csubires          #+#    #+#             */
-/*   Updated: 2024/11/07 10:51:57 by csubires         ###   ########.fr       */
+/*   Updated: 2024/11/09 11:04:11 by csubires         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,14 @@ static size_t	is_narg(char *str)
 		return (0);
 	x = 1;
 	while (str[x])
-		if (str[x++] != 'n')
-			return (0);
-	return (1);
+		if (str[x++] == 'n')
+			return (1);
+	return (0);
 }
 
 static void	manage_new_line(t_dllist *arg_item[], size_t *line)
 {
-	while (*arg_item && (*arg_item)->data && \
+	if (*arg_item && (*arg_item)->data && \
 	is_narg((char *)(*arg_item)->data))
 	{
 		*line = 0;
@@ -38,19 +38,21 @@ static void	manage_new_line(t_dllist *arg_item[], size_t *line)
 static void	print_tokens(t_shell *shell, t_exec *exec_cmd)
 {
 	t_dllist	*tmp_list;
+	char		*tmp_str;
 
 	tmp_list = exec_cmd->arg_list;
-	while (tmp_list && (char *)tmp_list->data)
+	while (tmp_list)
 	{
+		tmp_str = (char *)tmp_list->data;
 		if (!ft_strcmp(tmp_list->data, "$?"))
 		{
 			free(tmp_list->data);
 			tmp_list->data = ft_itoa(shell->exit_stat);
 		}
-		ft_fdprint(exec_cmd->out_fd, "%s", (char *)tmp_list->data);
-		tmp_list = tmp_list->next;
-		if (tmp_list && (char *)tmp_list->data)
+		ft_fdprint(exec_cmd->out_fd, "%s", tmp_str);
+		if (tmp_str && tmp_str[0] != '$' && tmp_str[0])
 			ft_fdprint(exec_cmd->out_fd, " ");
+		tmp_list = tmp_list->next;
 	}
 }
 

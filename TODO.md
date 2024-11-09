@@ -1,10 +1,11 @@
 
 ## Por hacer
 Quitar comentarios antes entrega
-
+https://platzi.com/blog/agregar-cuentas-git-y-github-computadora/
 
 ## Errores
 a veces no se borra el input prompt
+al cambiar buildin a procesos hijos, ya no funciona cd & otros
 
 ## Probar
 cat | cat | ls
@@ -60,3 +61,6 @@ valgrind --leak-check=full ./minishell -c 'echo hola'
 ps -a
 lsof -p <pid>
 valgrind  --track-fds=yes
+
+	// printf("Process: %s, in_fd: %d, out_fd: %d\n", \
+	// exec_cmd->executable, exec_cmd->in_fd, exec_cmd->out_fd);

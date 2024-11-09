@@ -6,7 +6,7 @@
 /*   By: csubires <csubires@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 10:46:57 by csubires          #+#    #+#             */
-/*   Updated: 2024/10/25 13:06:05 by csubires         ###   ########.fr       */
+/*   Updated: 2024/11/09 09:03:05 by csubires         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,5 +58,6 @@ void	execute_child(t_shell *shell, char **env, char **arg, t_exec *exec_cmd)
 	}
 	dump_fds(&exec_cmd);
 	execve(path, arg, env);
-	return ;
+	print_error(-1, shell, ERR_CHILD);
+	exit (1);
 }

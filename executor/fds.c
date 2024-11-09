@@ -6,7 +6,7 @@
 /*   By: csubires <csubires@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 09:30:30 by csubires          #+#    #+#             */
-/*   Updated: 2024/10/10 09:58:11 by csubires         ###   ########.fr       */
+/*   Updated: 2024/11/09 09:07:24 by csubires         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	set_pipe(t_shell *shell)
 	int			fd[2];
 
 	tmp_list = shell->exec_list;
-	while (tmp_list->next)
+	while (tmp_list && tmp_list->next)
 	{
 		pipe(fd);
 		exec_cmd = tmp_list->data;
@@ -29,7 +29,6 @@ static void	set_pipe(t_shell *shell)
 		next_exec_cmd->in_fd = fd[0];
 		tmp_list = tmp_list->next;
 	}
-	exec_cmd = tmp_list->data;
 }
 
 void	manage_fds(t_shell *shell)
