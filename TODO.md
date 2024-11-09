@@ -3,6 +3,7 @@
 Quitar comentarios antes entrega
 https://platzi.com/blog/agregar-cuentas-git-y-github-computadora/
 
+
 ## Errores
 a veces no se borra el input prompt
 al cambiar buildin a procesos hijos, ya no funciona cd & otros
