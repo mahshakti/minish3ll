@@ -6,7 +6,7 @@
 /*   By: csubires <csubires@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 16:19:52 by csubires          #+#    #+#             */
-/*   Updated: 2024/11/09 10:31:23 by csubires         ###   ########.fr       */
+/*   Updated: 2024/11/11 11:07:37 by csubires         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ static t_shell	*init_shell(char *envp[])
 {
 	t_shell	*shell;
 
-	using_history();
 	shell = ft_calloc(1, sizeof(t_shell));
 	if (!shell)
 		print_error(-1, shell, ERR_MALLOC);
@@ -53,7 +52,7 @@ static char	*get_input(t_shell *shell)
 		path = ft_strdup(get_env_value(shell->env_list, "PWD"));
 	else
 		path = ft_strjoin("~", path);
-	shell->prompt = ft_strconcat(7, BLUE, "@minishell:", GREEN, \
+	shell->prompt = ft_strconcat(7, YELLOW, "@minishell:", GREEN, \
 	path, YELLOW, "\n $ ", ENDC);
 	free(path);
 	shell->input = readline(shell->prompt);

@@ -6,7 +6,7 @@
 /*   By: csubires <csubires@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 19:17:39 by csubires          #+#    #+#             */
-/*   Updated: 2024/10/25 09:20:53 by csubires         ###   ########.fr       */
+/*   Updated: 2024/11/11 10:41:30 by csubires         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,10 @@ static char	*read_heredoc(char *delimiter)
 		if (!join_str)
 			join_str = ft_strdup(read_str);
 		else
-		{
-			join_str = ft_strjoin(join_str, "\n");
-			join_str = ft_strjoin(join_str, read_str);
-		}
+			join_str = ft_strconcat(3, join_str, "\n", read_str);
 		free(read_str);
 	}
-	join_str = ft_strjoin(join_str, "\n");
+	join_str = ft_strconcat(2, join_str, "\n");
 	return (join_str);
 }
 

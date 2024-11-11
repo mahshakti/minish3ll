@@ -1,11 +1,13 @@
 
 ## Por hacer
+- [ ] Revistar export a="algo=k", Se divide en 2
+a=
+algo=k
+cuando debería ser a=algo=k
 Quitar comentarios antes entrega
 https://platzi.com/blog/agregar-cuentas-git-y-github-computadora/
 
-
 ## Errores
-a veces no se borra el input prompt
 al cambiar buildin a procesos hijos, ya no funciona cd & otros
 
 ## Probar

@@ -6,7 +6,7 @@
 /*   By: csubires <csubires@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 16:20:22 by csubires          #+#    #+#             */
-/*   Updated: 2024/11/06 08:52:58 by csubires         ###   ########.fr       */
+/*   Updated: 2024/11/11 11:21:47 by csubires         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,6 @@
 # include <unistd.h>
 # include "libft/libft.h"
 # include "dlinked_list/dlinked_list.h"
-
-# define PATH_MAX	10
 
 # define MSG_BYE	"Bye Bye\n"
 

@@ -6,7 +6,7 @@
 /*   By: csubires <csubires@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 18:50:55 by csubires          #+#    #+#             */
-/*   Updated: 2024/10/23 12:54:33 by csubires         ###   ########.fr       */
+/*   Updated: 2024/11/11 10:10:58 by csubires         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ void	token_to_dllist(t_shell *shell, int start, int end)
 
 void	set_redirect(t_shell *shell, char *input, int *x)
 {
+	if (!*input)
+		return ;
 	if (input[*x] == '|')
 	{
 		token_to_dllist(shell, *x, *x + 1);
