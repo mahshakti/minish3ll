@@ -6,7 +6,7 @@
 /*   By: csubires <csubires@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 16:19:52 by csubires          #+#    #+#             */
-/*   Updated: 2024/11/11 11:07:37 by csubires         ###   ########.fr       */
+/*   Updated: 2024/11/12 12:21:33 by csubires         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,12 +69,12 @@ static char	*get_input(t_shell *shell)
 static void	fill_lists(t_shell *shell)
 {
 	tokens_to_dllist(shell);
-	if (1)
-		print_token_list(shell);
+	//if (1)
+	//	print_token_list(shell);
 	exec_cmd_to_dllist(shell);
 	manage_fds(shell);
-	if (1)
-		print_exec_list(shell);
+	//if (1)
+	//	print_exec_list(shell);
 }
 
 int	main(int argc, char *argv[], char *envp[])

@@ -6,7 +6,7 @@
 /*   By: csubires <csubires@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 19:29:06 by csubires          #+#    #+#             */
-/*   Updated: 2024/10/25 13:59:35 by csubires         ###   ########.fr       */
+/*   Updated: 2024/11/12 11:29:49 by csubires         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,11 @@ char	*ft_itoa(int n);
 char	*ft_strchr(const char *s, int c);
 char	*ft_strconcat(int num_of_str, ...);
 char	*ft_strdup(const char *s1);
-char	*ft_strjoin(const char *s1, const char *s2);
+char	*ft_strjoin(char *s1, char *s2);
 char	*ft_substr(char const *s, size_t start, size_t len);
 char	*ft_strltrim(char const *s1, char const *s2);
 void	*ft_calloc(size_t count, size_t size);
+int 	ft_isallalpha(char *str);
 int		ft_atoi(const char *str);
 int		ft_fdprint(int fd, char *format, ...);
 int		ft_isprint(int c);

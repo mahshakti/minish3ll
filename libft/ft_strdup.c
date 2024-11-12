@@ -6,7 +6,7 @@
 /*   By: csubires <csubires@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 16:48:56 by csubires          #+#    #+#             */
-/*   Updated: 2024/10/15 10:13:07 by csubires         ###   ########.fr       */
+/*   Updated: 2024/11/12 11:59:45 by csubires         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	*ft_strdup(const char *s1)
 	size_t	len;
 
 	len = ft_strlen(s1) + 1;
-	str = (char *)malloc(sizeof(char) * len);
+	str = (char *)ft_calloc(len, sizeof(char));
 	if (!str)
 		return (0);
 	ft_strlcpy(str, s1, len);

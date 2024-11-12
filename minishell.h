@@ -6,7 +6,7 @@
 /*   By: csubires <csubires@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 16:20:22 by csubires          #+#    #+#             */
-/*   Updated: 2024/11/11 11:21:47 by csubires         ###   ########.fr       */
+/*   Updated: 2024/11/12 10:33:19 by csubires         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@
 # define ERR_CHILD	"execute_child error\n"
 # define ERR_FORK	"exec_parent fork error\n"
 # define ERR_FD		"error manage fd\n"
+# define ERR_ASIG	"bad assignment"
 
 # define RED	"\033[1;31m"
 # define GREEN	"\033[1;32m"
