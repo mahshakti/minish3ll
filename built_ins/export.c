@@ -6,7 +6,7 @@
 /*   By: csubires <csubires@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 09:56:55 by csubires          #+#    #+#             */
-/*   Updated: 2024/11/12 11:53:24 by csubires         ###   ########.fr       */
+/*   Updated: 2024/11/13 11:33:26 by csubires         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ static size_t	export_arg(t_shell *shell, t_exec *exec_cmd)
 {
 	t_dllist	*node;
 	t_dllist	*tmp_list;
-	t_envp		*env_item;
 	char		**one_var;
 
 	tmp_list = exec_cmd->arg_list;
@@ -32,10 +31,7 @@ static size_t	export_arg(t_shell *shell, t_exec *exec_cmd)
 		if (node)
 			update_envp(node, one_var[1]);
 		else
-		{
-			env_item = create_env_item(one_var);
-			insert_env_item(shell, env_item);
-		}
+			insert_env_item(shell, create_env_item(one_var));
 		free(one_var);
 		tmp_list = tmp_list->next;
 	}

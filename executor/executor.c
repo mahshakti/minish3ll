@@ -6,7 +6,7 @@
 /*   By: csubires <csubires@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 11:42:13 by csubires          #+#    #+#             */
-/*   Updated: 2024/11/12 12:29:28 by csubires         ###   ########.fr       */
+/*   Updated: 2024/11/13 11:36:25 by csubires         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,8 +102,6 @@ void	execute_execs(t_shell *shell)
 	t_dllist	*tmp_list;
 	t_exec		*exec_cmd;
 
-	//tmp_list = shell->exec_list;
-	//exec_cmd = (t_exec *)dlist_last(tmp_list)->data;
 	tmp_list = shell->exec_list;
 	while (tmp_list)
 	{
