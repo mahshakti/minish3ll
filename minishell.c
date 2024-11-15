@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csubires <csubires@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jesumore <jesumore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 16:19:52 by csubires          #+#    #+#             */
-/*   Updated: 2024/11/15 12:53:38 by csubires         ###   ########.fr       */
+/*   Updated: 2024/11/15 17:43:24 by jesumore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,13 @@ static char	*get_input(t_shell *shell)
 	path, YELLOW, " \n $ ", ENDC);
 	free(path);
 	// shell->prompt = ft_strjoin("@minishell:", get_env_value(shell->env_list, "PWD"));
+	//shell->prompt = adjust_prompt(&(shell->prompt));
 	shell->input = readline(shell->prompt);
 	if (!shell->input)
 	{
 		printf("%s%s%s\n", BLUE, MSG_BYE, ENDC);
-		return (0);
+		free_all(shell);
+		exit (0);
 	}
 	if (*(shell->input))
 		add_history(shell->input);
@@ -115,6 +117,14 @@ int	main(int argc, char *argv[], char *envp[])
 			free_input(shell);
 		}
 	}
+	// while (1 && !shell->error)
+	// {
+	// 	if (!get_input(shell) || is_empty(shell->input))
+	// 		break ;
+	// 	fill_lists(shell);
+	// 	execute_execs(shell);
+	// 	free_input(shell);
+	// }
 	restore_signals();
 	free_all(shell);
 	return (0);

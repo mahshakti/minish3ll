@@ -8,12 +8,15 @@ cuando debería ser a=algo=k
 
 - [X] ls / /home
 - [X] cd ~/.cd42/ Con ruta relativa
-- [ ] ARREGLAR Ctr +D
+- [X] ARREGLAR Ctr +D
+- [ ] Still reachable de readline
+- [ ] exit (x), echo $? debe mostrar x.
 - [ ] EJECUTAR MINISHELL DENTRO DE MINISHELL Y ACTUALIZAR SHLVL=1
 - [ ] Revisar el ft_strconcat y ft_strdup (Problemas con el prompt)
 - [ ] ls -la >> apen3.txt >> apen4.txt
 
 
+Mirar las funciones rl_clear_history(), rl_deprep_terminal() y rl_cleanup_after_signal. Pueden servir para arreglar los still reachable.
 
 remove ft_isallalpha.c ??? --> usar en export ex: export a=">>"
 
