@@ -6,7 +6,7 @@
 /*   By: csubires <csubires@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 16:19:52 by csubires          #+#    #+#             */
-/*   Updated: 2024/11/12 12:21:33 by csubires         ###   ########.fr       */
+/*   Updated: 2024/11/15 12:53:38 by csubires         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ static t_shell	*init_shell(char *envp[])
 
 static char	*get_input(t_shell *shell)
 {
+
 	char	*path;
 
 	path = ft_strltrim(get_env_value(shell->env_list, "PWD"), \
@@ -53,8 +54,9 @@ static char	*get_input(t_shell *shell)
 	else
 		path = ft_strjoin("~", path);
 	shell->prompt = ft_strconcat(7, YELLOW, "@minishell:", GREEN, \
-	path, YELLOW, "\n $ ", ENDC);
+	path, YELLOW, " \n $ ", ENDC);
 	free(path);
+	// shell->prompt = ft_strjoin("@minishell:", get_env_value(shell->env_list, "PWD"));
 	shell->input = readline(shell->prompt);
 	if (!shell->input)
 	{
@@ -82,12 +84,14 @@ int	main(int argc, char *argv[], char *envp[])
 	t_shell	*shell;
 
 	(void)argv;
-	//if (argc != 1)
-	//	print_error(-1, (void *)0, ERR_ARG);
+	if (argc != 1)
+		print_error(-1, (void *)0, ERR_ARG);
 	init_signals();
 	shell = init_shell(envp);
 
-	/* BYPASS */
+	/* BYPASS
+
+
 
 	if (argc > 2 && !ft_strcmp(argv[1], "-c"))
 	{
@@ -100,7 +104,7 @@ int	main(int argc, char *argv[], char *envp[])
 		return (0);
 	}
 
-	/* BYPASS */
+	 BYPASS */
 
 	while (1 && !shell->error)
 	{

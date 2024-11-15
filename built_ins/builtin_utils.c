@@ -6,7 +6,7 @@
 /*   By: csubires <csubires@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 17:55:43 by csubires          #+#    #+#             */
-/*   Updated: 2024/10/15 10:32:53 by csubires         ###   ########.fr       */
+/*   Updated: 2024/11/15 12:04:47 by csubires         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ void	update_envp(t_dllist *node, char *value)
 {
 	t_envp	*env_item;
 
+	if (!node)
+		return ;
 	env_item = (t_envp *)node->data;
 	if (env_item->value)
 		free(env_item->value);

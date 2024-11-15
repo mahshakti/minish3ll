@@ -1,30 +1,45 @@
 
 ## POR HACER
 - [ ] Revisar export a="algo=k", Se divide en 2
+  COMPROBAR COMILLAS, SIMPLES O DOBLES, CERRADAS!
 a=
 algo=k
 cuando debería ser a=algo=k
-- [X] ls / /home
-- [ ] cd ~/.cd42/ Con ruta relativa
-- [ ] Quitar posibles comentarios y debug code antes de entrega
 
-remove ft_isallalpha.c ???
+- [X] ls / /home
+- [X] cd ~/.cd42/ Con ruta relativa
+- [ ] ARREGLAR Ctr +D
+- [ ] EJECUTAR MINISHELL DENTRO DE MINISHELL Y ACTUALIZAR SHLVL=1
+- [ ] Revisar el ft_strconcat y ft_strdup (Problemas con el prompt)
+- [ ] ls -la >> apen3.txt >> apen4.txt
+
+
+
+remove ft_isallalpha.c ??? --> usar en export ex: export a=">>"
 
 ## ERRORES
 - [X] valgrind en echo heredoc (revisar ft_strjoin)
-- [ ] Después de hacer un echo y presionar (flecha abajo) en el historial, se queda static echo
-- [ ] valgrind export algo=a""sd
---- al cambiar buildin a procesos hijos, ya no funciona cd & otros
+- [ ] Después de hacer un echo y presionar (flecha abajo) en el historial, se queda estatico echo
+- [X] valgrind export algo=a""sd
+
+## COSAS QUE NO ES NECESARIO HACER
+- [-] cd - se interpreta como cd sin nada NO ES NECESARIO?, solo rutas
 
 ## PROBAR
+- [ ] BUSCAR LA GUIA DE CORRECCIÓN Y PROBAR
+- [ ] COMPROBAR QUE NO SE USAN FUNCIONES PROHIBIDAS
+- [ ] Quitar posibles comentarios y debug code antes de entrega, NORMA
+
+
+
 cat | cat | ls
 ls | wc
-echo $P$P$P$PWD
+
 << eof | cat, cat | cat | ls
 echo -nnnnnnnnn -n -nnnnnm
 |
 ls | | wc
-echo "''$PWD'''qwere"qwqwer$P$P$PWD"'$PWD'"
+
 ls |;
 ls |&
 $_
@@ -54,15 +69,17 @@ ls | exit | wc
 qué output se espera en minishell de ls |;  y de ls |& ?
 <<< ,  <<<< , |||
 <<<, <<<<, >>, >>>>, > $Expansion y no existe la variable en si, 1234>1, < >,
+
+echo $P$P$P$PWD
 echo $HOME$HOME$HOME$HOME
 echo "$"HOME
 echo "$HO"ME
 echo $HOME"$HOME"$HOME
 echo $$
 echo $""HOME
+echo "''$PWD'''qwere"qwqwer$P$P$PWD"'$PWD'"
 
 ## COSAS
-
 norminette -R CheckForbiddenSourceHeader **/*.c **/*.h 2>/dev/null
 valgrind --leak-check=full ./minishell -c 'ecfreho hola'
 
@@ -94,3 +111,8 @@ Host github.com
 6. now give git push origin master
 
 git@github.com:mahshakti/minish3ll.git
+
+
+## INFO
+Al cambiar buildin a procesos hijos, ya no funciona cd & otros. Obvio.. se ejecutan en otro proceso que no es el padre.
+
