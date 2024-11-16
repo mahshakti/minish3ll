@@ -6,7 +6,7 @@
 /*   By: csubires <csubires@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 09:05:48 by csubires          #+#    #+#             */
-/*   Updated: 2024/10/25 14:43:13 by csubires         ###   ########.fr       */
+/*   Updated: 2024/11/16 11:28:18 by csubires         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,21 @@ char *new_pwd, char *path)
 	printf("\ndebug PWD %s]", get_env_value(shell->env_list, "PWD"));
 	printf("\ndebug OLD %s]", get_env_value(shell->env_list, "OLDPWD"));
 	printf("\nTO PATH %s", path);
+}
+
+void	print_path(char **array_paths)
+{
+	int			x;
+
+	if (!array_paths)
+		return ;
+	x = 0;
+	printf("\nENV PATH ARRAY FOR EXECUTABLES BIN:\n");
+	while (array_paths[x])
+	{
+		printf("[%d] %s\n", x, array_paths[x]);
+		x++;
+	}
 }
 
 void	print_token_list(t_shell *shell)
