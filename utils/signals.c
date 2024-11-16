@@ -3,21 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jesumore <jesumore@student.42.fr>          +#+  +:+       +#+        */
+/*   By: csubires <csubires@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 17:53:41 by csubires          #+#    #+#             */
-/*   Updated: 2024/11/15 14:29:39 by jesumore         ###   ########.fr       */
+/*   Updated: 2024/11/16 20:19:41 by csubires         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char *adjust_prompt(char **prompt)
+char	*adjust_prompt(char **prompt)
 {
-	int term_len;
-	int prompt_len;
-	char *new_prompt;
-	struct winsize w;
+	int				term_len;
+	int				prompt_len;
+	char			*new_prompt;
+	struct winsize	w;
 
 	ioctl(1, TIOCGWINSZ, &w);
 	term_len = w.ws_col;
@@ -32,7 +32,7 @@ char *adjust_prompt(char **prompt)
 	return (*prompt);
 }
 
-static void manage_sigint(int sig)
+static void	manage_sigint(int sig)
 {
 	(void)sig;
 	if (isatty(0))
@@ -44,20 +44,20 @@ static void manage_sigint(int sig)
 	}
 }
 
-static void manage_sigquit(int sig)
+static void	manage_sigquit(int sig)
 {
 	(void)sig;
 	if (isatty(0))
 		signal(3, SIG_IGN);
 }
 
-void init_signals(void)
+void	init_signals(void)
 {
 	signal(2, manage_sigint);
 	signal(3, manage_sigquit);
 }
 
-void restore_signals(void)
+void	restore_signals(void)
 {
 	signal(2, SIG_DFL);
 	signal(3, SIG_DFL);

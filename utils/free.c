@@ -6,7 +6,7 @@
 /*   By: csubires <csubires@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 18:02:49 by csubires          #+#    #+#             */
-/*   Updated: 2024/11/11 10:26:58 by csubires         ###   ########.fr       */
+/*   Updated: 2024/11/16 16:55:07 by csubires         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ static void	free_args(t_dllist *args)
 	while (tmp_list)
 	{
 		next_arg = tmp_list->next;
-		free_data(tmp_list->data);
+		if (tmp_list->data)
+			free_data(tmp_list->data);
 		free(tmp_list);
 		tmp_list = 0;
 		tmp_list = next_arg;

@@ -6,7 +6,7 @@
 /*   By: csubires <csubires@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 16:04:52 by csubires          #+#    #+#             */
-/*   Updated: 2024/10/01 09:23:38 by csubires         ###   ########.fr       */
+/*   Updated: 2024/11/16 17:49:28 by csubires         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char	*ft_substr(char const *s, size_t start, size_t len)
 	if (len > (len_s - start))
 		len = len_s - start;
 	len++;
-	str = (char *)malloc(sizeof(char) * len);
+	str = (char *)ft_calloc(len, sizeof(char));
 	if (!str)
 		return (0);
 	ft_strlcpy(str, s + start, len);

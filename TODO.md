@@ -10,10 +10,10 @@ cuando debería ser a=algo=k
 - [X] EJECUTAR MINISHELL DENTRO DE MINISHELL Y ACTUALIZAR SHLVL=1
 	Nadie lo hace?, Ojo con unset SHLVL (Implementado en init_shell())
 - [X] Revisar el ft_strconcat y ft_strdup (Problemas con el prompt)
-	Se hizo un apaño imprimiendo con printf el prompt en vez de meterlo todo en el readline()
+	Se hizo un apaño imprimiendo con printf el prompt en vez de meterlo todo en el readline(). A readline no le gusta los códigos de colores?
 - [ ] COMPROBAR COMILLAS, SIMPLES O DOBLES, CERRADAS! en export, echo,..
 - [ ] ls -la >> apen3.txt >> apen4.txt
-- [ ] echo $? + $? Devuelve basura (�Fϓ�U + 1) y en bash (0 + 0)
+- [X] echo $? + $? Devuelve basura (�Fϓ�U + 1) y en bash (0 + 0)
 - [ ] Meter en algún lado el mensaje de error al borrar PWD y hacer cd ..
 
 remove ft_isallalpha.c ??? --> usar en export ex: export a=">>"
@@ -23,11 +23,15 @@ remove ft_isallalpha.c ??? --> usar en export ex: export a=">>"
 - [X] valgrind en echo heredoc (revisar ft_strjoin), leak
 - [ ] Después de hacer un echo y presionar (flecha abajo) en el historial, se queda estatico echo
 - [ ] Entradas con pipe como env | grep SHLVL se queda experando, en bash no
+	Con ls | cat no sucede, con cat | ls sí (en este caso es normal), echo . | ls OK
+
 
 ## COSAS QUE NO ES NECESARIO HACER
-- [-] cd - se interpreta como cd sin nada NO ES NECESARIO?, solo rutas
-- [X] Eliminado adjust_prompt en utls.c, como primer intento de ajustar el prompt al tamaño de la consola
+- [-] cd - se interpreta como cd a OLDPWD, ¿ES NECESARIO?, solo rutas
+- [ ] Eliminar adjust_prompt en utlis.c como primer intento de ajustar el prompt al tamaño de la consola
 - [?] Still reachable de readline
+- [X] cd sin argumentos no debería hacer nada según subject, y actualmente va a $HOME.
+	Así que se ha modificado para que solo haga el cd con un argumento, en otro caso da error. build_ins->cd.c->get_working_dir()
 
 ## PROBAR
 - [ ] COMPROBAR QUE CUALQUIER COMANDO QUE DEPENDA DE VARIABLES DE ENTORNO NO DE Segmentation fault AL BORRAR SU VARIABLE EX: $PWD/cd, pwd .., $HOME/cd ~/,
@@ -43,7 +47,7 @@ cat lol.c | " cat > lol.c
 
 echo "  a   sd " | cat -e
 
-
+- [X] echo $? $? $? $? $? $? $? $? $? $? $? $?
 cat | cat | ls
 ls | wc
 << eof | cat, cat | cat | ls
@@ -95,6 +99,8 @@ echo "''$PWD'''qwere"qwqwer$P$P$PWD"'$PWD'"
 - Si se ejecutan los comandos build-in en procesos hijos, ya no funciona comandos como cd, export, etc, Porque cada proceso hijo lleva una copia de las variables de entorno del padre y solo se cambian en el hijo que al hacer exit se borra.
 Thrads (Hilos) si comparten memoria, Procesos (Fork) no por eso usan señales??? (Ver philosophers + bonus).
 
+- Mejorar heredoc?, con archivo?, actualmente todas las líneas que se leen se van concatenando en una variable en memoria(exec_cmd->heredoc_data) ... parse_utils.c->read_heredoc()
+
 ## DUDAS ??¿?¿?¿¿?
 - ctrl-D in an empty prompt should quit minishell --> RELAUNCH!
 - ctrl-D in a prompt after you wrote some stuff should not do anything.
@@ -102,6 +108,8 @@ Thrads (Hilos) si comparten memoria, Procesos (Fork) no por eso usan señales???
 - Entonces, ¿ctrl-D Se sale de la shell definitivamente? (según subject) o sale y se relanza (Bye bye, pero vuelve a la shell) (según hoja de correcciones)?
 
 ## COMENTARIOS
+
+
 
 ---
 
@@ -121,7 +129,7 @@ En teoría es así. En child_utils.c -> get_path_exec() se llama a env_path_to_a
 
 ## COSAS
 - norminette -R CheckForbiddenSourceHeader **/*.c **/*.h 2>/dev/null
-- valgrind --leak-check=full ./minishell -c 'ecfreho hola'
+- valgrind --leak-check=full --track-origins=yes ./minishell -c 'ecfreho hola'
 - env -i ./minishell
 - ps -a
 - lsof -p <pid>

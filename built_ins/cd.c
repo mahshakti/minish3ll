@@ -6,7 +6,7 @@
 /*   By: csubires <csubires@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 10:00:17 by csubires          #+#    #+#             */
-/*   Updated: 2024/11/15 12:01:56 by csubires         ###   ########.fr       */
+/*   Updated: 2024/11/16 18:15:44 by csubires         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,18 @@ static size_t	free_pwd(char *path, char *old_pwd, char *new_pwd)
 
 static void	update_pwd(t_shell *shell, char *old_pwd, char *new_pwd)
 {
-	if (new_pwd)
+	t_dllist		*env_item;
+
+	env_item = search_env_item(shell->env_list, "PWD");
+	if (new_pwd && env_item)
 		update_envp(search_env_item(shell->env_list, "PWD"), new_pwd);
-	if (old_pwd)
+	else
+		print_error(1, (void *)0, ERR_PATH);
+	env_item = search_env_item(shell->env_list, "OLDPWD");
+	if (old_pwd && env_item)
 		update_envp(search_env_item(shell->env_list, "OLDPWD"), old_pwd);
+	else
+		print_error(1, (void *)0, ERR_PATH);
 }
 
 static char	*get_working_dir(t_exec	*exec_cmd)
@@ -41,8 +49,9 @@ static char	*get_working_dir(t_exec	*exec_cmd)
 		exec_cmd->arg_list->data = ft_strconcat(2, getenv("HOME"), \
 		++exec_cmd->arg_list->data);
 	if (!exec_cmd->arg_list)
-		path = ft_strdup(getenv("HOME"));
-	else if (!ft_strcmp(exec_cmd->arg_list->data, "."))
+		return (ft_strdup("."));
+	//path = ft_strdup(getenv("HOME"));
+	if (!ft_strcmp(exec_cmd->arg_list->data, "."))
 	{
 		pwd = getcwd(0, 0);
 		path = ft_strdup(pwd);
@@ -63,6 +72,11 @@ size_t	buildin_cd(t_shell *shell, t_exec *exec_cmd)
 
 	old_pwd = 0;
 	new_pwd = 0;
+	if (dlist_size(exec_cmd->arg_list) > 1)
+	{
+		print_error(1, (void *)0, ERR_MANY);
+		return (0);
+	}
 	path = get_working_dir(exec_cmd);
 	if (path && access(path, F_OK))
 	{

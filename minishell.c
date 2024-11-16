@@ -6,7 +6,7 @@
 /*   By: csubires <csubires@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 16:19:52 by csubires          #+#    #+#             */
-/*   Updated: 2024/11/16 13:28:52 by csubires         ###   ########.fr       */
+/*   Updated: 2024/11/16 19:54:32 by csubires         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,11 @@ static void	free_input(t_shell *shell)
 	{
 		free(shell->input);
 		shell->input = 0;
+	}
+	if (shell->prompt)
+	{
+		free(shell->prompt);
+		shell->prompt = 0;
 	}
 }
 
@@ -48,17 +53,19 @@ static t_shell	*init_shell(char *envp[])
 
 static char	*get_input(t_shell *shell)
 {
-	shell->prompt = ft_strltrim(get_env_value(shell->env_list, "PWD"), \
+	char	*path;
+
+	path = ft_strltrim(get_env_value(shell->env_list, "PWD"), \
 	get_env_value(shell->env_list, "HOME"));
-	if (!shell->prompt)
-		shell->prompt = ft_strdup(get_env_value(shell->env_list, "PWD"));
+	if (!path)
+		path = ft_strdup(get_env_value(shell->env_list, "PWD"));
 	else
-		shell->prompt = ft_strjoin("~", shell->prompt);
+		path = ft_strjoin("~", path);
 	shell->prompt = ft_strconcat(5, YELLOW, "@minishell:", GREEN, \
-	shell->prompt, ENDC);
-    printf("%s", shell->prompt);
-	free(shell->prompt);
-	shell->input = readline(" \n \033[1;33m$\033[0m ");
+	path, ENDC);
+    printf("%s\n", shell->prompt);
+	free(path);
+	shell->input = readline(" $ ");
 	if (!shell->input)
 	{
 		printf("%s%s%s\n", BLUE, MSG_BYE, ENDC);
@@ -73,12 +80,14 @@ static char	*get_input(t_shell *shell)
 static void	fill_lists(t_shell *shell)
 {
 	tokens_to_dllist(shell);
-	//if (1)
-	//	print_token_list(shell);
+
+
+	if (1)
+		print_token_list(shell);
 	exec_cmd_to_dllist(shell);
 	manage_fds(shell);
-	//if (1)
-	//	print_exec_list(shell);
+	if (1)
+		print_exec_list(shell);
 }
 
 int	main(int argc, char *argv[], char *envp[])
@@ -87,7 +96,7 @@ int	main(int argc, char *argv[], char *envp[])
 
 	(void)argv;
 	//if (argc != 1)
-	//	print_error(-1, (void *)0, ERR_ARG);
+	//	print_error(-1, (void *)0, ERR_MANY);
 	init_signals();
 	shell = init_shell(envp);
 
@@ -111,6 +120,8 @@ int	main(int argc, char *argv[], char *envp[])
 		if (get_input(shell) && !is_empty(shell->input))
 		{
 			fill_lists(shell);
+			if (shell->error)
+				continue ;
 			execute_execs(shell);
 			free_input(shell);
 		}

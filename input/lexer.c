@@ -6,7 +6,7 @@
 /*   By: csubires <csubires@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 18:39:58 by csubires          #+#    #+#             */
-/*   Updated: 2024/10/23 12:36:43 by csubires         ###   ########.fr       */
+/*   Updated: 2024/11/16 20:14:36 by csubires         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,17 @@ static void	split_tokens(t_shell *shell, char *input)
 {
 	int		x;
 
+	if (!*input)
+		return ;
 	x = 0;
-	while (input[x])
+	while (x < (int)ft_strlen(input))
 	{
 		check_token(shell, input, &x);
+		if (x >= (int)ft_strlen(input))
+			break ;
 		set_redirect(shell, input, &x);
+		if (x >= (int)ft_strlen(input))
+			break ;
 		if (!ft_isprint(input[x]) || ft_isspace(input[x]))
 			x++;
 		else
