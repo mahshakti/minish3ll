@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jesumore <jesumore@student.42.fr>          +#+  +:+       +#+        */
+/*   By: csubires <csubires@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 16:19:52 by csubires          #+#    #+#             */
-/*   Updated: 2024/11/15 17:43:24 by jesumore         ###   ########.fr       */
+/*   Updated: 2024/11/16 13:28:52 by csubires         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,42 +23,42 @@ static void	free_input(t_shell *shell)
 		free(shell->input);
 		shell->input = 0;
 	}
-	if (shell->prompt)
-	{
-		free(shell->prompt);
-		shell->prompt = 0;
-	}
 }
 
 static t_shell	*init_shell(char *envp[])
 {
 	t_shell	*shell;
+	char	*value;
 
 	shell = ft_calloc(1, sizeof(t_shell));
 	if (!shell)
 		print_error(-1, shell, ERR_MALLOC);
 	shell->error = 0;
+	shell->exit_stat = 0;
 	envp_to_dllist(shell, envp);
+	value = get_env_value(shell->env_list, "SHLVL");
+	if (value)
+	{
+		value = ft_itoa(ft_atoi(value) + 1);
+		update_envp(search_env_item(shell->env_list, "SHLVL"), value);
+		free(value);
+	}
 	return (shell);
 }
 
 static char	*get_input(t_shell *shell)
 {
-
-	char	*path;
-
-	path = ft_strltrim(get_env_value(shell->env_list, "PWD"), \
+	shell->prompt = ft_strltrim(get_env_value(shell->env_list, "PWD"), \
 	get_env_value(shell->env_list, "HOME"));
-	if (!path)
-		path = ft_strdup(get_env_value(shell->env_list, "PWD"));
+	if (!shell->prompt)
+		shell->prompt = ft_strdup(get_env_value(shell->env_list, "PWD"));
 	else
-		path = ft_strjoin("~", path);
-	shell->prompt = ft_strconcat(7, YELLOW, "@minishell:", GREEN, \
-	path, YELLOW, " \n $ ", ENDC);
-	free(path);
-	// shell->prompt = ft_strjoin("@minishell:", get_env_value(shell->env_list, "PWD"));
-	//shell->prompt = adjust_prompt(&(shell->prompt));
-	shell->input = readline(shell->prompt);
+		shell->prompt = ft_strjoin("~", shell->prompt);
+	shell->prompt = ft_strconcat(5, YELLOW, "@minishell:", GREEN, \
+	shell->prompt, ENDC);
+    printf("%s", shell->prompt);
+	free(shell->prompt);
+	shell->input = readline(" \n \033[1;33m$\033[0m ");
 	if (!shell->input)
 	{
 		printf("%s%s%s\n", BLUE, MSG_BYE, ENDC);
@@ -86,14 +86,12 @@ int	main(int argc, char *argv[], char *envp[])
 	t_shell	*shell;
 
 	(void)argv;
-	if (argc != 1)
-		print_error(-1, (void *)0, ERR_ARG);
+	//if (argc != 1)
+	//	print_error(-1, (void *)0, ERR_ARG);
 	init_signals();
 	shell = init_shell(envp);
 
-	/* BYPASS
-
-
+	/* BYPASS */
 
 	if (argc > 2 && !ft_strcmp(argv[1], "-c"))
 	{
@@ -106,7 +104,7 @@ int	main(int argc, char *argv[], char *envp[])
 		return (0);
 	}
 
-	 BYPASS */
+	 /* BYPASS */
 
 	while (1 && !shell->error)
 	{

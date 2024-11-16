@@ -6,7 +6,7 @@
 /*   By: csubires <csubires@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 18:17:04 by csubires          #+#    #+#             */
-/*   Updated: 2024/10/15 10:11:33 by csubires         ###   ########.fr       */
+/*   Updated: 2024/11/16 12:05:46 by csubires         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ int	ft_strcmp(char *s1, char *s2)
 {
 	size_t	x;
 
+	if (!s1 || !s2)
+		return (-1);
 	x = 0;
 	while (s1[x] && s2[x] && s1[x] == s2[x])
 		x++;

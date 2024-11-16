@@ -6,7 +6,7 @@
 /*   By: csubires <csubires@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 16:20:22 by csubires          #+#    #+#             */
-/*   Updated: 2024/11/12 10:33:19 by csubires         ###   ########.fr       */
+/*   Updated: 2024/11/16 11:26:50 by csubires         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,5 +163,6 @@ int			file_exists(char *file_name);
 //			UTILS/DBG_PRINT.C
 void		print_token_list(t_shell *shell);
 void		print_exec_list(t_shell *shell);
+void		print_path(char **array_paths);
 
 #endif
