@@ -33,7 +33,7 @@ static void	manage_input_fd(t_exec *exec_cmd)
 		in_fd = open(exec_cmd->input_file, O_RDONLY);
 		if (exec_cmd->in_fd == -1)
 		{
-			print_error(1, 0, ERR_FD);
+			print_error(1, 0, ERR_FD, 0);
 			return ;
 		}
 		else
@@ -45,7 +45,7 @@ static void	manage_input_fd(t_exec *exec_cmd)
 	}
 }
 
-static void	manage_output_fd(t_exec *exec_cmd, t_dllist *tmp_list)
+void	manage_output_fd(t_exec *exec_cmd, t_dllist *tmp_list)
 {
 	t_exec	*next_exec_cmd;
 	int		flags;
@@ -55,13 +55,13 @@ static void	manage_output_fd(t_exec *exec_cmd, t_dllist *tmp_list)
 	fd = open(exec_cmd->output_file, flags, 0644);
 	if (fd == -1)
 	{
-		print_error(1, 0, ERR_FD);
+		print_error(1, 0, ERR_FD, 0);
 		return ;
 	}
 	if (exec_cmd->out_fd != 1)
 		close(exec_cmd->out_fd);
 	exec_cmd->out_fd = fd;
-	if (tmp_list->next)
+	if (tmp_list && tmp_list->next)
 	{
 		next_exec_cmd = tmp_list->next->data;
 		if (next_exec_cmd->in_fd != 0)

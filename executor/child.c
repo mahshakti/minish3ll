@@ -40,24 +40,24 @@ void	execute_child(t_shell *shell, char **env, char **arg, t_exec *exec_cmd)
 	if ((exec_cmd->input_file && !file_exists(exec_cmd->input_file)) || \
 		exec_cmd->in_fd == -1)
 	{
-		print_error(1, shell, ERR_FD);
+		print_error(1, shell, ERR_FD, 0);
 		return ;
 	}
 	if (has_path(arg[0]))
 	{
 		path = ft_strdup(arg[0]);
 		if (!path)
-			print_error(-1, shell, ERR_CHILD);
+			print_error(-1, shell, ERR_CHILD, arg[0]);
 	}
 	else
 		path = get_path_exec(shell, arg[0]);
 	if (!path)
 	{
 		shell->exit_stat = 1;
-		print_error(-1, shell, ERR_NOTCMD);
+		print_error(-1, shell, ERR_NOTCMD, arg[0]);
 	}
 	dump_fds(&exec_cmd);
 	execve(path, arg, env);
-	print_error(-1, shell, ERR_CHILD);
+	print_error(-1, shell, ERR_CHILD, 0);
 	exit (1);
 }

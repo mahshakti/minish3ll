@@ -22,16 +22,20 @@ int	is_empty(char *str)
 	return (1);
 }
 
-int	print_error(int err, t_shell *shell, char *msg)
+int	print_error(int err, t_shell *shell, char *msg, char *func)
 {
 	if (shell)
 	{
 		shell->error = 1;
-		shell->exit_stat = 1;
+		if (!func)
+			shell->exit_stat = 1;
+		else
+			shell->exit_stat = 127;
 	}
-	printf("%serr: %s%s", RED, msg, ENDC);
+	// Colored printf("%sminishell: %s: %s%s", RED, func, msg, ENDC);
+	printf("minishell: %s: %s", func, msg);
 	if (err == -1)
-		exit (1);
+		exit (shell->exit_stat);
 	return (err);
 }
 

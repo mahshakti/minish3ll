@@ -36,10 +36,10 @@ static char	**env_path_to_array(t_shell *shell)
 
 	tmp_str = get_env_value(shell->env_list, "PATH");
 	if (!tmp_str)
-		print_error(-1, shell, ERR_PATH);
+		print_error(-1, shell, ERR_PATH, 0);
 	path_array = ft_split(tmp_str, ':');
 	if (!path_array)
-		print_error(1, shell, ERR_PATH);
+		print_error(1, shell, ERR_PATH, 0);
 	return (path_array);
 }
 
@@ -57,7 +57,7 @@ char	*get_path_exec(t_shell *shell, char *exec_str)
 	{
 		full_path_bin = ft_strconcat(3, path_array[x], "/", exec_str);
 		if (!full_path_bin)
-			print_error(-1, shell, ERR_PATH);
+			print_error(-1, shell, ERR_PATH, 0);
 		if (!access(full_path_bin, X_OK))
 		{
 			free_array((void **)path_array);

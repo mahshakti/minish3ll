@@ -37,7 +37,7 @@ static t_shell	*init_shell(char *envp[])
 
 	shell = ft_calloc(1, sizeof(t_shell));
 	if (!shell)
-		print_error(-1, shell, ERR_MALLOC);
+		print_error(-1, shell, ERR_MALLOC, 0);
 	shell->error = 0;
 	shell->exit_stat = 0;
 	envp_to_dllist(shell, envp);
@@ -46,6 +46,13 @@ static t_shell	*init_shell(char *envp[])
 	{
 		value = ft_itoa(ft_atoi(value) + 1);
 		update_envp(search_env_item(shell->env_list, "SHLVL"), value);
+		free(value);
+	}
+	value = get_env_value(shell->env_list, "OLDPWD");
+	if (value)
+	{
+		value = ft_itoa(ft_atoi(value) + 1);
+		update_envp(search_env_item(shell->env_list, "OLDPWD"), "");
 		free(value);
 	}
 	return (shell);
@@ -61,7 +68,7 @@ static char	*get_input(t_shell *shell)
 		path = ft_strdup(get_env_value(shell->env_list, "PWD"));
 	else
 		path = ft_strjoin("~", path);
-	shell->prompt = ft_strconcat(5, YELLOW, "@minishell:", GREEN, \
+	shell->prompt = ft_strconcat(5, YELLOW, "42@minishell:", GREEN, \
 	path, ENDC);
     printf("%s\n", shell->prompt);
 	free(path);
@@ -110,7 +117,7 @@ int	main(int argc, char *argv[], char *envp[])
 		free_input(shell);
 		restore_signals();
 		free_all(shell);
-		return (0);
+		return (shell->exit_stat);
 	}
 
 	 /* BYPASS */
@@ -136,5 +143,5 @@ int	main(int argc, char *argv[], char *envp[])
 	// }
 	restore_signals();
 	free_all(shell);
-	return (0);
+	return (shell->exit_stat);
 }

@@ -38,7 +38,7 @@ void	update_envp(t_dllist *node, char *value)
 	{
 		env_item->value = ft_strdup(value);
 		if (!env_item->value)
-			print_error(-1, 0, ERR_UP_ENV);
+			print_error(-1, 0, ERR_UP_ENV, 0);
 	}
 	else
 		env_item->value = 0;

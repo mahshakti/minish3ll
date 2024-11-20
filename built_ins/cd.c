@@ -31,12 +31,12 @@ static void	update_pwd(t_shell *shell, char *old_pwd, char *new_pwd)
 	if (new_pwd && env_item)
 		update_envp(search_env_item(shell->env_list, "PWD"), new_pwd);
 	else
-		print_error(1, (void *)0, ERR_PATH);
+		print_error(1, (void *)0, ERR_PATH, "cd");
 	env_item = search_env_item(shell->env_list, "OLDPWD");
 	if (old_pwd && env_item)
 		update_envp(search_env_item(shell->env_list, "OLDPWD"), old_pwd);
 	else
-		print_error(1, (void *)0, ERR_PATH);
+		print_error(1, (void *)0, ERR_PATH, "cd");
 }
 
 static char	*get_working_dir(t_exec	*exec_cmd)
@@ -74,13 +74,13 @@ size_t	buildin_cd(t_shell *shell, t_exec *exec_cmd)
 	new_pwd = 0;
 	if (dlist_size(exec_cmd->arg_list) > 1)
 	{
-		print_error(1, (void *)0, ERR_MANY);
+		print_error(1, (void *)0, ERR_MANY, "cd");
 		return (0);
 	}
 	path = get_working_dir(exec_cmd);
 	if (path && access(path, F_OK))
 	{
-		print_error(1, 0, ERR_PATH);
+		print_error(1, 0, ERR_PATH, "cd");
 		return (free_pwd(path, old_pwd, new_pwd));
 	}
 	old_pwd = getcwd(0, 0);
@@ -90,5 +90,6 @@ size_t	buildin_cd(t_shell *shell, t_exec *exec_cmd)
 		chdir(path);
 	new_pwd = getcwd(0, 0);
 	update_pwd(shell, old_pwd, new_pwd);
+	//print_cd_change(shell, old_pwd, new_pwd, path);
 	return (free_pwd(path, old_pwd, new_pwd));
 }

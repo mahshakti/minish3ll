@@ -23,10 +23,7 @@ static size_t	export_arg(t_shell *shell, t_exec *exec_cmd)
 	{
 		one_var = split_env_item((char *)tmp_list->data, '=');
 		if (!one_var)
-		{
-			print_error(1, 0, ERR_ASIG);
 			return (0);
-		}
 		node = search_env_item(shell->env_list, one_var[0]);
 		if (node)
 			update_envp(node, one_var[1]);

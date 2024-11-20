@@ -126,6 +126,7 @@ void		free_array(void *array[]);
 void		manage_fds(t_shell *shell);
 
 //			EXECUTOR/FDS_UTILS.C
+void		manage_output_fd(t_exec *exec_cmd, t_dllist *tmp_list);
 void		manage_heredoc(t_shell *shell);
 
 //			INPUT/EXPANDER.C
@@ -135,7 +136,7 @@ void		expand_envp(t_shell *shell, int *x);
 void		tokens_to_dllist(t_shell *shell);
 
 //			INPUT/LEXER_UTILS.C
-void		token_to_dllist(t_shell *shell, int start, int end);
+void		token_to_dllist(t_shell *shell, int start, int end, char before_quote);
 void		set_redirect(t_shell *shell, char *input, int *x);
 void		tokenise_arg(t_shell *shell, char *input, int *x);
 
@@ -158,12 +159,14 @@ void		restore_signals(void);
 
 //			UTILS/UTILS.C
 int			is_empty(char *str);
-int			print_error(int err, t_shell *shell, char *msg);
+int			print_error(int err, t_shell *shell, char *msg, char *func);
 int			file_exists(char *file_name);
 
 //			UTILS/DBG_PRINT.C
 void		print_token_list(t_shell *shell);
 void		print_exec_list(t_shell *shell);
 void		print_path(char **array_paths);
+void		print_cd_change(t_shell *shell, char *old_pwd, \
+			char *new_pwd, char *path);
 
 #endif

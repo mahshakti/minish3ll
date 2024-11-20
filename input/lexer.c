@@ -17,15 +17,17 @@ static void	check_token(t_shell *shell, char *input, int *x)
 	int		start;
 	int		end;
 	char	quote;
+	char	before_quote;
 
 	if (input[*x] && (input[*x] == '\'' || input[*x] == '\"'))
 	{
+		before_quote = input[*x - 1];
 		quote = input[*x];
 		start = ++(*x);
 		while (input[*x] && input[*x] != quote)
 			(*x)++;
 		end = *x;
-		token_to_dllist(shell, start, end);
+		token_to_dllist(shell, start, end, before_quote);
 		(*x)++;
 	}
 }

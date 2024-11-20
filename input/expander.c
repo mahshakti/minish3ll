@@ -57,7 +57,7 @@ static char	*trim_env_key(char *str)
 	x = 0;
 	key = 0;
 	while (ft_isprint(str[x]) && !ft_isspace(str[x]) \
-	&& !is_quotes(str[x]) && str[x] != '$')
+	&& !is_quotes(str[x]) && str[x] != '$' && str[x] != ';')
 		x++;
 	if (x)
 		key = ft_substr(str, 0, x);

@@ -22,14 +22,28 @@ static t_dllist	*create_token(t_shell *shell, char *str)
 	return (node);
 }
 
-void	token_to_dllist(t_shell *shell, int start, int end)
+void	token_to_dllist(t_shell *shell, int start, int end, char before_quote)
 {
 	t_dllist	*node;
+	t_dllist	*last_token;
 	char		*token_str;
+	char		*join_tokens;
 
-	token_str = ft_substr(shell->input, start, end - start);
-	node = create_token(shell, token_str);
-	dlist_add_after(&(shell->token_list), node);
+	if (before_quote == '=')
+	{
+		token_str = ft_substr(shell->input, start, end - start);
+		last_token = dlist_last(shell->token_list);
+		join_tokens = ft_strjoin(last_token->data, token_str);
+		free(last_token->data);
+		last_token->data = join_tokens;
+		free(token_str);
+	}
+	else
+	{
+		token_str = ft_substr(shell->input, start, end - start);
+		node = create_token(shell, token_str);
+		dlist_add_after(&(shell->token_list), node);
+	}
 }
 
 void	set_redirect(t_shell *shell, char *input, int *x)
@@ -38,19 +52,19 @@ void	set_redirect(t_shell *shell, char *input, int *x)
 		return ;
 	if (input[*x] == '|')
 	{
-		token_to_dllist(shell, *x, *x + 1);
+		token_to_dllist(shell, *x, *x + 1, '\0');
 		(*x)++;
 	}
 	else if (input[*x] == '<' || input[*x] == '>')
 	{
 		if (input[*x] == input[*x + 1])
 		{
-			token_to_dllist(shell, *x, *x + 2);
+			token_to_dllist(shell, *x, *x + 2, '\0');
 			*x += 2;
 		}
 		else
 		{
-			token_to_dllist(shell, *x, *x + 1);
+			token_to_dllist(shell, *x, *x + 1, '\0');
 			(*x)++;
 		}
 	}
@@ -81,6 +95,6 @@ void	tokenise_arg(t_shell *shell, char *input, int *x)
 		while (isnt_metachar(input[*x]))
 			(*x)++;
 		end = *x;
-		token_to_dllist(shell, start, end);
+		token_to_dllist(shell, start, end, '\0');
 	}
 }

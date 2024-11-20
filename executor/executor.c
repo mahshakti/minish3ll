@@ -79,7 +79,7 @@ static void	make_fork(t_shell *shell, t_exec *exec_cmd)
 	*child_pid = fork();
 	if (*child_pid < 0)
 	{
-		print_error(-1, shell, ERR_FORK);
+		print_error(-1, shell, ERR_FORK, 0);
 		return ;
 	}
 	else if (!*child_pid)
@@ -91,7 +91,7 @@ static void	make_fork(t_shell *shell, t_exec *exec_cmd)
 	new_node = dlist_new(child_pid);
 	if (!new_node)
 	{
-		print_error(-1, shell, ERR_FORK);
+		print_error(-1, shell, ERR_FORK, 0);
 		return ;
 	}
 	dlist_add_after(&shell->childrenpid_list, new_node);

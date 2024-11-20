@@ -1,6 +1,6 @@
 
 ## POR HACER
-- [ ] Revisar export a="algo=k", Se divide en 2
+- [X] Revisar export a="algo=k", Se divide en 2
 a=
 algo=k
 cuando debería ser a=algo=k
@@ -11,17 +11,20 @@ cuando debería ser a=algo=k
 	Nadie lo hace?, Ojo con unset SHLVL (Implementado en init_shell())
 - [X] Revisar el ft_strconcat y ft_strdup (Problemas con el prompt)
 	Se hizo un apaño imprimiendo con printf el prompt en vez de meterlo todo en el readline(). A readline no le gusta los códigos de colores?
-- [ ] COMPROBAR COMILLAS, SIMPLES O DOBLES, CERRADAS! en export, echo,..
-- [ ] ls -la >> apen3.txt >> apen4.txt
+- [ ] COMPROBAR COMILLAS, SIMPLES O DOBLES, CERRADAS! en export, echo,.. e imprimir ERROR????
+- [X] ls -la >> apen3.txt >> apen4.txt No está contemplado ya que con la estructura actual, cada comando tiene una sola variable para in/out, filename/fd. Para realizar lo anterior sería nacesario crear un listado de archivos? para cada comando...
+EXTRA: Apaño en parse_utils.c->manage_output() para crear todos los archivos, aunque solo se escriba en el último.
 - [X] echo $? + $? Devuelve basura (�Fϓ�U + 1) y en bash (0 + 0)
-- [ ] Meter en algún lado el mensaje de error al borrar PWD y hacer cd ..
-
+- [X] Meter en algún lado el mensaje de error al borrar PWD y hacer cd ..
+- [+] Eliminado el espacio añadido al hacer echo del último elemento (algo$). ./minishell -c "echo algo" | cat -e 
+- [+] Añadido nombre de comando a mensaje de error para pasar tests
+- [+] Seteado $OLDPWD a null cuando entra a minishell en init_shell()
+- [+] Eliminado ';' de echo $PWD; en parse.c->args_to_dllist()
 remove ft_isallalpha.c ??? --> usar en export ex: export a=">>"
 
 ## ERRORES & LEAKS
 - [X] valgrind export algo=a""sd, leak
 - [X] valgrind en echo heredoc (revisar ft_strjoin), leak
-- [ ] Después de hacer un echo y presionar (flecha abajo) en el historial, se queda estatico echo
 - [ ] Entradas con pipe como env | grep SHLVL se queda experando, en bash no
 	Con ls | cat no sucede, con cat | ls sí (en este caso es normal), echo . | ls OK
 
@@ -46,6 +49,7 @@ user@darkc:/tmp$ echo 'cat lol.c | " cat > lol.c'
 cat lol.c | " cat > lol.c
 
 echo "  a   sd " | cat -e
+env | cat -e
 
 - [X] echo $? $? $? $? $? $? $? $? $? $? $? $?
 cat | cat | ls
@@ -109,8 +113,6 @@ Thrads (Hilos) si comparten memoria, Procesos (Fork) no por eso usan señales???
 
 ## COMENTARIOS
 
-
-
 ---
 
 - exit (999), echo $? debe mostrar 999 fuera de la minishell -> NO, según subject es exit sin argumentos
@@ -158,3 +160,8 @@ Host github.com
 6. now give git push origin master
 
 git@github.com:mahshakti/minish3ll.git
+
+
+## AUTO_TEST
+
+minishell_test -p /home/user/Documentos/box/minish3ll builtin/pwd

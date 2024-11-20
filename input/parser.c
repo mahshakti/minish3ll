@@ -16,7 +16,7 @@ static void	trim_executable(t_exec *exec_cmd, t_dllist **tmp_list)
 {
 	exec_cmd->executable = ft_strdup((char *)(*tmp_list)->data);
 	if (!exec_cmd->executable)
-		print_error(-1, 0, ERR_NOTCMD);
+		print_error(-1, 0, ERR_NOTCMD, 0);
 }
 
 static void	args_to_dllist(t_shell *shell, t_exec *exec_cmd, char *data)
@@ -24,12 +24,14 @@ static void	args_to_dllist(t_shell *shell, t_exec *exec_cmd, char *data)
 	char		*arg;
 	t_dllist	*arg_node;
 
+	if (data && data[(ft_strlen(data)) - 1] == ';')
+		data[(ft_strlen(data)) - 1] = '\0';
 	arg = ft_strdup(data);
 	arg_node = dlist_new(arg);
 	if (!arg_node)
 	{
+		print_error(-1, shell, ERR_NOTCMD, arg);
 		free_execs(exec_cmd);
-		print_error(-1, shell, ERR_NOTCMD);
 	}
 	dlist_add_after(&(exec_cmd->arg_list), arg_node);
 }
@@ -80,10 +82,10 @@ void	exec_cmd_to_dllist(t_shell *shell)
 	{
 		exec_cmd = fill_cmd_struct(shell, &tmp_list);
 		if (!exec_cmd)
-			print_error(-1, shell, ERR_NOTCMD);
+			print_error(-1, shell, ERR_NOTCMD, "");
 		node = dlist_new(exec_cmd);
 		if (!node)
-			print_error(-1, shell, ERR_NOTCMD);
+			print_error(-1, shell, ERR_NOTCMD, "");
 		dlist_add_after(&(shell->exec_list), node);
 		shell->num_of_cmds++;
 	}

@@ -66,19 +66,13 @@ static void	manage_input(t_exec *exec_cmd, t_dllist **token_ptr)
 
 static void	manage_output(t_exec *exec_cmd, t_dllist *token_ptr[])
 {
-	if ((*token_ptr)->next)
-	{
-		if (!ft_strcmp((char *)(*token_ptr)->data, ">") || \
-		!ft_strcmp((char *)(*token_ptr)->data, ">>"))
-		{
-			if (exec_cmd->output_file)
-				dlist_free((void **)&(exec_cmd->output_file));
-			if (!ft_strcmp((char *)(*token_ptr)->data, ">>"))
-				exec_cmd->append_to_fd = 1;
-			*token_ptr = (*token_ptr)->next;
-			exec_cmd->output_file = ft_strdup((char *)(*token_ptr)->data);
-		}
-	}
+	if (exec_cmd->output_file)
+		dlist_free((void **)&(exec_cmd->output_file));
+	if (!ft_strcmp((char *)(*token_ptr)->data, ">>"))
+		exec_cmd->append_to_fd = 1;
+	*token_ptr = (*token_ptr)->next;
+	exec_cmd->output_file = ft_strdup((char *)(*token_ptr)->data);
+	manage_output_fd(exec_cmd, 0);
 }
 
 void	manage_redirection(t_exec *exec_cmd, t_dllist *token_ptr[])
