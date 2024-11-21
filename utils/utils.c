@@ -6,7 +6,7 @@
 /*   By: csubires <csubires@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 17:45:19 by csubires          #+#    #+#             */
-/*   Updated: 2024/11/09 08:43:15 by csubires         ###   ########.fr       */
+/*   Updated: 2024/11/21 11:33:14 by csubires         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,7 @@ int	print_error(int err, t_shell *shell, char *msg, char *func)
 		else
 			shell->exit_stat = 127;
 	}
-	// Colored printf("%sminishell: %s: %s%s", RED, func, msg, ENDC);
-	printf("minishell: %s: %s", func, msg);
+	ft_fdprint(2, "minishell: %s: %s", func, msg);
 	if (err == -1)
 		exit (shell->exit_stat);
 	return (err);

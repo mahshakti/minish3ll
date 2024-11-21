@@ -6,7 +6,7 @@
 /*   By: csubires <csubires@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 16:19:52 by csubires          #+#    #+#             */
-/*   Updated: 2024/11/16 19:54:32 by csubires         ###   ########.fr       */
+/*   Updated: 2024/11/21 11:28:45 by csubires         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,8 +87,6 @@ static char	*get_input(t_shell *shell)
 static void	fill_lists(t_shell *shell)
 {
 	tokens_to_dllist(shell);
-
-
 	if (1)
 		print_token_list(shell);
 	exec_cmd_to_dllist(shell);
@@ -102,6 +100,13 @@ int	main(int argc, char *argv[], char *envp[])
 	t_shell	*shell;
 
 	(void)argv;
+
+	if (!*envp)
+	{
+		printf("err envp not found");
+		exit (1);
+	}
+
 	//if (argc != 1)
 	//	print_error(-1, (void *)0, ERR_MANY);
 	init_signals();

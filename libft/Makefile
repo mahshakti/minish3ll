@@ -6,14 +6,13 @@
 #    By: csubires <csubires@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/18 13:48:18 by csubires          #+#    #+#              #
-#    Updated: 2024/11/12 11:15:00 by csubires         ###   ########.fr        #
+#    Updated: 2024/11/21 10:15:29 by csubires         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 FILES_C		= ft_atoi.c ft_isprint.c ft_isspace.c ft_itoa.c ft_split.c \
 			ft_strdup.c ft_strjoin.c ft_strlcpy.c ft_strlen.c ft_substr.c ft_strcmp.c \
-			ft_strchr.c ft_strconcat.c ft_fdprint.c ft_calloc.c ft_strltrim.c \
-			ft_isallalpha.c
+			ft_strchr.c ft_strconcat.c ft_fdprint.c ft_calloc.c ft_strltrim.c
 
 NAME		= libft.a
 SRCS_DIR	= .

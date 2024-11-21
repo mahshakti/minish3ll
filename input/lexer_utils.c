@@ -6,7 +6,7 @@
 /*   By: csubires <csubires@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 18:50:55 by csubires          #+#    #+#             */
-/*   Updated: 2024/11/11 10:10:58 by csubires         ###   ########.fr       */
+/*   Updated: 2024/11/21 11:08:36 by csubires         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	set_redirect(t_shell *shell, char *input, int *x)
 	}
 }
 
-static int	isnt_metachar(char c)
+int	isnt_metachar(char c)
 {
 	char	*invalid_chars;
 

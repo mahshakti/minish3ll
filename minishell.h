@@ -6,7 +6,7 @@
 /*   By: csubires <csubires@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 16:20:22 by csubires          #+#    #+#             */
-/*   Updated: 2024/11/16 18:45:00 by csubires         ###   ########.fr       */
+/*   Updated: 2024/11/21 11:29:05 by csubires         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@
 # define ERR_FD		"error manage fd\n"
 # define ERR_ASIG	"bad assignment\n"
 # define ERR_QUOT	"error unclosed quotation marks detected\n"
+# define ERR_EXPO	"not a valid identifier\n"
 
 # define RED	"\033[1;31m"
 # define GREEN	"\033[1;32m"
@@ -136,9 +137,11 @@ void		expand_envp(t_shell *shell, int *x);
 void		tokens_to_dllist(t_shell *shell);
 
 //			INPUT/LEXER_UTILS.C
-void		token_to_dllist(t_shell *shell, int start, int end, char before_quote);
+void		token_to_dllist(t_shell *shell, int start, int end, \
+			char before_quote);
 void		set_redirect(t_shell *shell, char *input, int *x);
 void		tokenise_arg(t_shell *shell, char *input, int *x);
+int			isnt_metachar(char c);
 
 //			INPUT/PARSER.C
 void		exec_cmd_to_dllist(t_shell *shell);

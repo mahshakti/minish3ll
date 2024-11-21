@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jesumore <jesumore@student.42.fr>          +#+  +:+       +#+        */
+/*   By: csubires <csubires@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 10:01:46 by csubires          #+#    #+#             */
-/*   Updated: 2024/11/15 17:11:34 by jesumore         ###   ########.fr       */
+/*   Updated: 2024/11/21 11:09:06 by csubires         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	buildin_exit(t_shell *shell)
 {
-	shell->exit_stat = 0;
-	exit(0);
+	(void)shell;
+	// shell->exit_stat = 0;
+	exit(shell->exit_stat);
 }

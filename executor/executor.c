@@ -6,7 +6,7 @@
 /*   By: csubires <csubires@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 11:42:13 by csubires          #+#    #+#             */
-/*   Updated: 2024/11/13 11:36:25 by csubires         ###   ########.fr       */
+/*   Updated: 2024/11/21 10:10:28 by csubires         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,13 +109,11 @@ void	execute_execs(t_shell *shell)
 		if (is_builtin(exec_cmd->executable))
 			execute_builtin(shell, exec_cmd);
 		else
-		{
 			make_fork(shell, exec_cmd);
-			if (exec_cmd->out_fd != 1)
-				close(exec_cmd->out_fd);
-			if (exec_cmd->in_fd != 0)
-				close(exec_cmd->in_fd);
-		}
+		if (exec_cmd->out_fd != 1)
+			close(exec_cmd->out_fd);
+		if (exec_cmd->in_fd != 0)
+			close(exec_cmd->in_fd);
 		tmp_list = tmp_list->next;
 	}
 	get_children_stat(shell, &shell->childrenpid_list);

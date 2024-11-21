@@ -6,7 +6,7 @@
 /*   By: csubires <csubires@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 10:00:17 by csubires          #+#    #+#             */
-/*   Updated: 2024/11/16 18:15:44 by csubires         ###   ########.fr       */
+/*   Updated: 2024/11/21 10:11:34 by csubires         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ static char	*get_working_dir(t_exec	*exec_cmd)
 		++exec_cmd->arg_list->data);
 	if (!exec_cmd->arg_list)
 		return (ft_strdup("."));
-	//path = ft_strdup(getenv("HOME"));
 	if (!ft_strcmp(exec_cmd->arg_list->data, "."))
 	{
 		pwd = getcwd(0, 0);
@@ -90,6 +89,5 @@ size_t	buildin_cd(t_shell *shell, t_exec *exec_cmd)
 		chdir(path);
 	new_pwd = getcwd(0, 0);
 	update_pwd(shell, old_pwd, new_pwd);
-	//print_cd_change(shell, old_pwd, new_pwd, path);
 	return (free_pwd(path, old_pwd, new_pwd));
 }

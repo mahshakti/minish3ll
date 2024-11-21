@@ -6,7 +6,7 @@
 /*   By: csubires <csubires@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 09:56:55 by csubires          #+#    #+#             */
-/*   Updated: 2024/11/13 11:33:26 by csubires         ###   ########.fr       */
+/*   Updated: 2024/11/21 09:32:19 by csubires         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,10 @@ static size_t	export_arg(t_shell *shell, t_exec *exec_cmd)
 	{
 		one_var = split_env_item((char *)tmp_list->data, '=');
 		if (!one_var)
+		{
+			print_error(1, 0, ERR_EXPO, "export");
 			return (0);
+		}
 		node = search_env_item(shell->env_list, one_var[0]);
 		if (node)
 			update_envp(node, one_var[1]);

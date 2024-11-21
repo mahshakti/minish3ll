@@ -6,7 +6,7 @@
 /*   By: csubires <csubires@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 10:01:16 by csubires          #+#    #+#             */
-/*   Updated: 2024/11/16 18:35:30 by csubires         ###   ########.fr       */
+/*   Updated: 2024/11/21 10:11:11 by csubires         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,8 @@ static void	print_tokens(t_shell *shell, t_exec *exec_cmd)
 		if (!ft_strcmp(tmp_list->data, "$?"))
 			free(tmp_str);
 		tmp_list = tmp_list->next;
-		if (tmp_str && !tmp_str[0] && (tmp_list && ((char *)tmp_list->data)[0]))
+		if (tmp_str && !tmp_str[0] && tmp_list)
 			ft_fdprint(exec_cmd->out_fd, " ");
-		if (tmp_str && !tmp_str[0] && (tmp_list && !((char *)tmp_list->data)[0]))
-			ft_fdprint(exec_cmd->out_fd, " ");		
 		if (tmp_str && tmp_str[0] != '$' && tmp_str[0] && tmp_list)
 			ft_fdprint(exec_cmd->out_fd, " ");
 	}
