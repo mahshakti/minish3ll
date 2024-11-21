@@ -33,6 +33,10 @@ EXTRA: Apaño en parse_utils.c->manage_output() para crear todos los archivos, a
 	Con ls | cat no sucede, con cat | ls sí (en este caso es normal), echo . | ls OK
 	<!> Parece arreglado. (Era un problema de cierre de pipe en executor.c->execute_execs())
 
+  - [ ] error en valgrind con " sola por ejemplo(echo palabra"), lo mismo con '
+  - [ ] Error en valgrind al usar echo $?
+  - [ ] Error de prompt al usar ^\
+
 ## COSAS QUE NO ES NECESARIO HACER
 - [-] cd - se interpreta como cd a OLDPWD, ¿ES NECESARIO?, solo rutas
 - [?] Still reachable de readline

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csubires <csubires@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jesumore <jesumore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 16:19:52 by csubires          #+#    #+#             */
-/*   Updated: 2024/11/21 12:43:23 by csubires         ###   ########.fr       */
+/*   Updated: 2024/11/21 15:00:31 by jesumore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ static char	*get_input(t_shell *shell)
 	shell->input = readline(" $ ");
 	if (!shell->input)
 	{
-		printf("%s%s%s\n", BLUE, MSG_BYE, ENDC);
 		free_all(shell);
 		exit (0);
 	}
