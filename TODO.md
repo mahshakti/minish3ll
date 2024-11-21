@@ -27,6 +27,7 @@ EXTRA: Apaño en parse_utils.c->manage_output() para crear todos los archivos, a
 - [ ] meterle al atoi variable de error en caso de encontrar una letra
 - [ ] dar error si se ejecuta minishel sin variables de entorno
 
+
 ## ERRORES & LEAKS
 - [X] valgrind export algo=a""sd, leak
 - [X] valgrind en echo heredoc (revisar ft_strjoin), leak
