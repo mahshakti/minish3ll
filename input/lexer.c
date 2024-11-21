@@ -6,7 +6,7 @@
 /*   By: csubires <csubires@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 18:39:58 by csubires          #+#    #+#             */
-/*   Updated: 2024/11/21 11:09:13 by csubires         ###   ########.fr       */
+/*   Updated: 2024/11/21 12:35:13 by csubires         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,11 @@ static void	replace_with_envp(t_shell *shell)
 
 void	tokens_to_dllist(t_shell *shell)
 {
+	char	*first_token;
+
 	replace_with_envp(shell);
 	split_tokens(shell, (char *)shell->input);
-
+	first_token = (char *)shell->token_list->data;
+	if (first_token && !isnt_metachar(first_token[0]))
+		print_error(1, shell, ERR_TOKEN, 0);
 }

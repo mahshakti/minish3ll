@@ -22,11 +22,9 @@ EXTRA: Apaño en parse_utils.c->manage_output() para crear todos los archivos, a
 - [+] Seteado $OLDPWD a null cuando entra a minishell en init_shell()
 - [+] Eliminado ';' de echo $PWD; en parse.c->args_to_dllist()
 
-- [ ] Pipe como comando da error
-- [ ] exit con número
-- [ ] meterle al atoi variable de error en caso de encontrar una letra
-- [ ] dar error si se ejecuta minishel sin variables de entorno
-
+- [X] Pipe como comando da error
+- [X] exit con número
+- [X] dar error si se ejecuta minishel sin variables de entorno
 
 ## ERRORES & LEAKS
 - [X] valgrind export algo=a""sd, leak

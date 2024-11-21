@@ -6,7 +6,7 @@
 /*   By: csubires <csubires@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 16:20:22 by csubires          #+#    #+#             */
-/*   Updated: 2024/11/21 11:29:05 by csubires         ###   ########.fr       */
+/*   Updated: 2024/11/21 12:16:05 by csubires         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@
 # define ERR_MALLOC "error to create malloc\n"
 # define ERR_MANY	"too many arguments\n"
 # define ERR_UP_ENV	"error when updating the environment variable\n"
-# define ERR_EXIT	"exit: too many arguments\n"
 # define ERR_PATH	"no such file or directory\n"
 # define ERR_NOTCMD	"command not found\n"
 # define ERR_CHILD	"execute_child error\n"
@@ -43,6 +42,8 @@
 # define ERR_ASIG	"bad assignment\n"
 # define ERR_QUOT	"error unclosed quotation marks detected\n"
 # define ERR_EXPO	"not a valid identifier\n"
+# define ERR_TOKEN	"syntax error near unexpected token\n"
+# define ERR_EXIT	"numeric argument required\n"
 
 # define RED	"\033[1;31m"
 # define GREEN	"\033[1;32m"
@@ -83,7 +84,7 @@ typedef struct s_shell
 }				t_shell;
 
 //			BUILD_INS/*.C
-void		buildin_exit(t_shell *shell);
+void		buildin_exit(t_shell *shell, t_exec *exec_cmd);
 size_t		buildin_cd(t_shell *shell, t_exec *exec_cmd);
 size_t		buildin_echo(t_shell *shell, t_exec *exec_cmd);
 size_t		buildin_env(t_shell *shell, t_exec *exec_cmd);

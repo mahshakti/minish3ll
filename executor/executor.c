@@ -6,7 +6,7 @@
 /*   By: csubires <csubires@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 11:42:13 by csubires          #+#    #+#             */
-/*   Updated: 2024/11/21 10:10:28 by csubires         ###   ########.fr       */
+/*   Updated: 2024/11/21 12:16:25 by csubires         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void	execute_builtin(t_shell *shell, t_exec *exec_cmd)
 		else if (!ft_strcmp(exec_cmd->executable, "env"))
 			stat = buildin_env(shell, exec_cmd);
 		else if (!ft_strcmp(exec_cmd->executable, "exit"))
-			buildin_exit(shell);
+			buildin_exit(shell, exec_cmd);
 		else if (!ft_strcmp(exec_cmd->executable, "export"))
 			stat = buildin_export(shell, exec_cmd);
 		else if (!ft_strcmp(exec_cmd->executable, "pwd"))
