@@ -6,7 +6,7 @@
 /*   By: csubires <csubires@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 18:43:18 by csubires          #+#    #+#             */
-/*   Updated: 2024/10/15 12:13:26 by csubires         ###   ########.fr       */
+/*   Updated: 2024/11/22 12:27:22 by csubires         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 static void	trim_executable(t_exec *exec_cmd, t_dllist **tmp_list)
 {
+	if (tmp_list && *tmp_list && !isnt_metachar(((char *)(*tmp_list)->data)[0]))
+		print_error(1, 0, ERR_TOKEN, 0);
 	exec_cmd->executable = ft_strdup((char *)(*tmp_list)->data);
 	if (!exec_cmd->executable)
 		print_error(-1, 0, ERR_NOTCMD, 0);
@@ -21,16 +23,14 @@ static void	trim_executable(t_exec *exec_cmd, t_dllist **tmp_list)
 
 static void	args_to_dllist(t_shell *shell, t_exec *exec_cmd, char *data)
 {
-	char		*arg;
 	t_dllist	*arg_node;
 
 	if (data && data[(ft_strlen(data)) - 1] == ';')
 		data[(ft_strlen(data)) - 1] = '\0';
-	arg = ft_strdup(data);
-	arg_node = dlist_new(arg);
+	arg_node = dlist_new(ft_strdup(data));
 	if (!arg_node)
 	{
-		print_error(-1, shell, ERR_NOTCMD, arg);
+		print_error(-1, shell, ERR_NOTCMD, 0);
 		free_execs(exec_cmd);
 	}
 	dlist_add_after(&(exec_cmd->arg_list), arg_node);

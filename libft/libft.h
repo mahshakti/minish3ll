@@ -6,7 +6,7 @@
 /*   By: csubires <csubires@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 19:29:06 by csubires          #+#    #+#             */
-/*   Updated: 2024/11/13 11:34:41 by csubires         ###   ########.fr       */
+/*   Updated: 2024/11/21 12:10:15 by csubires         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,12 @@ char	*ft_strjoin(char *s1, char *s2);
 char	*ft_substr(char const *s, size_t start, size_t len);
 char	*ft_strltrim(char const *s1, char const *s2);
 void	*ft_calloc(size_t count, size_t size);
-int		ft_isallalpha(char *str);
 int		ft_atoi(const char *str);
 int		ft_fdprint(int fd, char *format, ...);
 int		ft_isprint(int c);
 int		ft_isspace(char c);
 int		ft_strcmp(char *s1, char *s2);
 int		ft_strlcpy(char *dst, const char *src, size_t dstsize);
+int     ft_isallalpha(char *str);
 
 #endif

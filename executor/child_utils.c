@@ -6,7 +6,7 @@
 /*   By: csubires <csubires@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 11:08:50 by csubires          #+#    #+#             */
-/*   Updated: 2024/11/16 11:29:46 by csubires         ###   ########.fr       */
+/*   Updated: 2024/11/21 10:10:55 by csubires         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,6 @@ char	*get_path_exec(t_shell *shell, char *exec_str)
 	int		x;
 
 	path_array = env_path_to_array(shell);
-	// BORRAR ESTO DE ABAJO
-	// print_path(path_array);
 	x = 0;
 	while (path_array[x])
 	{

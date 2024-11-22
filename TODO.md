@@ -1,4 +1,9 @@
 
+## IMPORTANTE
+- [!] Antes de hacer PULL ver si hay modificaciones en GITHUB
+	https://github.com/mahshakti/minish3ll/tree/hotfix (Hacer git fetch ayuda a comprobar cambios)
+- [!] Hacer todas las pruebas con valgrind o en modo debug (gdb) si da fallos de segmentación
+
 ## POR HACER
 - [X] Revisar export a="algo=k", Se divide en 2
 a=
@@ -12,6 +17,7 @@ cuando debería ser a=algo=k
 - [X] Revisar el ft_strconcat y ft_strdup (Problemas con el prompt)
 	Se hizo un apaño imprimiendo con printf el prompt en vez de meterlo todo en el readline(). A readline no le gusta los códigos de colores?
 - [ ] COMPROBAR COMILLAS, SIMPLES O DOBLES, CERRADAS! en export, echo,.. e imprimir ERROR????
+	Las comillas que están cerradas deben desaparecer (sin dejar un espacio). Pero si están dentro de otras cerradas NO
 - [X] ls -la >> apen3.txt >> apen4.txt No está contemplado ya que con la estructura actual, cada comando tiene una sola variable para in/out, filename/fd. Para realizar lo anterior sería nacesario crear un listado de archivos? para cada comando...
 EXTRA: Apaño en parse_utils.c->manage_output() para crear todos los archivos, aunque solo se escriba en el último.
 - [X] echo $? + $? Devuelve basura (�Fϓ�U + 1) y en bash (0 + 0)
@@ -20,18 +26,31 @@ EXTRA: Apaño en parse_utils.c->manage_output() para crear todos los archivos, a
 - [+] Añadido nombre de comando a mensaje de error para pasar tests
 - [+] Seteado $OLDPWD a null cuando entra a minishell en init_shell()
 - [+] Eliminado ';' de echo $PWD; en parse.c->args_to_dllist()
-remove ft_isallalpha.c ??? --> usar en export ex: export a=">>"
+- [X] Pipe como comando da error
+- [X] exit con número
+- [X] dar error si se ejecuta minishel sin variables de entorno
 
 ## ERRORES & LEAKS
 - [X] valgrind export algo=a""sd, leak
 - [X] valgrind en echo heredoc (revisar ft_strjoin), leak
-- [ ] Entradas con pipe como env | grep SHLVL se queda experando, en bash no
+- [X] Entradas con pipe como env | grep SHLVL se queda experando, en bash no
 	Con ls | cat no sucede, con cat | ls sí (en este caso es normal), echo . | ls OK
+	<!> Parece arreglado. (Era un problema de cierre de pipe en executor.c->execute_execs())
 
+- [X] error en valgrind con " sola por ejemplo(echo palabra"), lo mismo con '
+- [X] Error en valgrind al usar echo $?
+- [X] Error de prompt al usar ^\
+- [ ] cd ~ error valgrind
+	==2107990==    by 0x10DA46: ft_strdup (ft_strdup.c:23)
+	==2107990==    by 0x10C3E9: args_to_dllist (parser.c:31)
+- [+] cd ~ ahora muestra /home/user en el prompt en vez de ~
+- [X] Error segmentation fault al ./minishell |. Que se arregla NO permitiendo parametros en ./minishell
 
 ## COSAS QUE NO ES NECESARIO HACER
+- [x] Solucionar still reachable: 214,833 bytes in 489 blocks
+	Se puede ver con valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all ./minishell
+	que esos leaks pertenecen a readline()
 - [-] cd - se interpreta como cd a OLDPWD, ¿ES NECESARIO?, solo rutas
-- [ ] Eliminar adjust_prompt en utlis.c como primer intento de ajustar el prompt al tamaño de la consola
 - [?] Still reachable de readline
 - [X] cd sin argumentos no debería hacer nada según subject, y actualmente va a $HOME.
 	Así que se ha modificado para que solo haga el cd con un argumento, en otro caso da error. build_ins->cd.c->get_working_dir()
@@ -42,15 +61,12 @@ remove ft_isallalpha.c ??? --> usar en export ex: export a=">>"
 - [ ] COMPROBAR QUE NO SE USAN FUNCIONES PROHIBIDAS
 - [ ] Quitar posibles comentarios y debug code (utils/dbg_print.c, y minishell.h) antes de entrega, NORMA
 
-
-echo "cat lol.c | " cat > lol.c"
-> "
+echo $(pwd) ??????????
+echo "cat lol.c | " cat > lol.c"> "
 user@darkc:/tmp$ echo 'cat lol.c | " cat > lol.c'
 cat lol.c | " cat > lol.c
-
 echo "  a   sd " | cat -e
 env | cat -e
-
 - [X] echo $? $? $? $? $? $? $? $? $? $? $? $?
 cat | cat | ls
 ls | wc
@@ -78,7 +94,7 @@ avoid awk
 export a=">>"
 ls $a algo
 exit 4 y fuera de las shell echo $?
-exit a1
+exit asdfdsf1
 exit 1a
 << ola | grep 42 | cat
 export a="ls -la"
@@ -87,7 +103,6 @@ ls | exit | wc
 qué output se espera en minishell de ls |;  y de ls |& ?
 <<< ,  <<<< , |||
 <<<, <<<<, >>, >>>>, > $Expansion y no existe la variable en si, 1234>1, < >,
-
 echo $P$P$P$PWD
 echo $HOME$HOME$HOME$HOME
 echo "$"HOME
@@ -115,10 +130,6 @@ Thrads (Hilos) si comparten memoria, Procesos (Fork) no por eso usan señales???
 
 ---
 
-- exit (999), echo $? debe mostrar 999 fuera de la minishell -> NO, según subject es exit sin argumentos
-
----
-
 - Set the $PATH to a multiple directory value (directory1:directory2) and ensure that directories are checked in order from left to right.
 
 En teoría es así. En child_utils.c -> get_path_exec() se llama a env_path_to_array() que es la función que trocea "PATH" y ft_split trocea en orden.
@@ -131,7 +142,10 @@ En teoría es así. En child_utils.c -> get_path_exec() se llama a env_path_to_a
 
 ## COSAS
 - norminette -R CheckForbiddenSourceHeader **/*.c **/*.h 2>/dev/null
-- valgrind --leak-check=full --track-origins=yes ./minishell -c 'ecfreho hola'
+- valgrind --leak-check=full --track-origins=yes ./minishell
+- valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all ./minishell
+
+- valgrind --leak-check=full --track-origins=yes "env -i ./minishell" ---------
 - env -i ./minishell
 - ps -a
 - lsof -p <pid>
@@ -165,3 +179,24 @@ git@github.com:mahshakti/minish3ll.git
 ## AUTO_TEST
 
 minishell_test -p /home/user/Documentos/box/minish3ll builtin/pwd
+
+## COSAS ELIMINADAS
+utils.c->print_error
+	// Colored 
+	printf("%sminishell: %s: %s%s", RED, func, msg, ENDC);
+
+
+
+	/* BYPASS
+
+	if (argc > 2 && !ft_strcmp(argv[1], "-c"))
+	{
+		shell->input = ft_strdup(argv[2]);
+		fill_lists(shell);
+		execute_execs(shell);
+		free_input(shell);
+		restore_signals();
+		free_all(shell);
+		return (shell->exit_stat);
+	}
+	BYPASS */

@@ -6,7 +6,7 @@
 /*   By: csubires <csubires@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 11:42:13 by csubires          #+#    #+#             */
-/*   Updated: 2024/11/13 11:36:25 by csubires         ###   ########.fr       */
+/*   Updated: 2024/11/22 11:58:31 by csubires         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void	execute_builtin(t_shell *shell, t_exec *exec_cmd)
 		else if (!ft_strcmp(exec_cmd->executable, "env"))
 			stat = buildin_env(shell, exec_cmd);
 		else if (!ft_strcmp(exec_cmd->executable, "exit"))
-			buildin_exit(shell);
+			buildin_exit(shell, exec_cmd);
 		else if (!ft_strcmp(exec_cmd->executable, "export"))
 			stat = buildin_export(shell, exec_cmd);
 		else if (!ft_strcmp(exec_cmd->executable, "pwd"))
@@ -67,7 +67,8 @@ static void	execute_bin(t_shell *shell, t_exec *exec_cmd)
 		close(exec_cmd->in_fd);
 	if (exec_cmd->out_fd != 1)
 		close(exec_cmd->out_fd);
-	free_exec_arrays(env_array, arg_array);
+	free_array((void **)env_array);
+	free_array((void **)arg_array);
 }
 
 static void	make_fork(t_shell *shell, t_exec *exec_cmd)
@@ -109,13 +110,11 @@ void	execute_execs(t_shell *shell)
 		if (is_builtin(exec_cmd->executable))
 			execute_builtin(shell, exec_cmd);
 		else
-		{
 			make_fork(shell, exec_cmd);
-			if (exec_cmd->out_fd != 1)
-				close(exec_cmd->out_fd);
-			if (exec_cmd->in_fd != 0)
-				close(exec_cmd->in_fd);
-		}
+		if (exec_cmd->out_fd != 1)
+			close(exec_cmd->out_fd);
+		if (exec_cmd->in_fd != 0)
+			close(exec_cmd->in_fd);
 		tmp_list = tmp_list->next;
 	}
 	get_children_stat(shell, &shell->childrenpid_list);

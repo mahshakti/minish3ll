@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csubires <csubires@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jesumore <jesumore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 19:17:39 by csubires          #+#    #+#             */
-/*   Updated: 2024/11/13 11:25:16 by csubires         ###   ########.fr       */
+/*   Updated: 2024/11/21 15:24:23 by jesumore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,8 @@ static void	manage_input(t_exec *exec_cmd, t_dllist **token_ptr)
 			*token_ptr = (*token_ptr)->next;
 			exec_cmd->input_file = ft_strdup((char *)(*token_ptr)->data);
 			if (!file_exists(exec_cmd->input_file))
-				ft_fdprint(exec_cmd->out_fd, "%s%s: %s%s\n" \
-				, RED, exec_cmd->input_file, ERR_PATH, ENDC);
+				ft_fdprint(exec_cmd->out_fd, "%s: %s\n" \
+				, exec_cmd->input_file, ERR_PATH);
 		}
 		else if (!ft_strcmp((char *)(*token_ptr)->data, "<<"))
 		{
