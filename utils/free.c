@@ -6,7 +6,7 @@
 /*   By: csubires <csubires@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 18:02:49 by csubires          #+#    #+#             */
-/*   Updated: 2024/11/16 16:55:07 by csubires         ###   ########.fr       */
+/*   Updated: 2024/11/22 12:37:06 by csubires         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,12 @@ void	free_tokens(t_shell *shell)
 
 static void	free_args(t_dllist *args)
 {
+
+	dlist_clear(&(args), free_data);
+	args = 0;
+
+/*
+	
 	t_dllist	*tmp_list;
 	t_dllist	*next_arg;
 
@@ -42,6 +48,7 @@ static void	free_args(t_dllist *args)
 		tmp_list = 0;
 		tmp_list = next_arg;
 	}
+	*/
 }
 
 void	free_execs(void *item)
@@ -77,6 +84,7 @@ void	free_all(t_shell *shell)
 			dlist_clear(&shell->env_list, free_env_entry);
 		if (shell->childrenpid_list)
 			dlist_clear(&(shell->childrenpid_list), free_data);
+		free_data(shell->prompt);
 		free_data(shell->input);
 		free_data(shell);
 	}

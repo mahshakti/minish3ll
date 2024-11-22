@@ -1,4 +1,9 @@
 
+## IMPORTANTE
+- [!] Antes de hacer PULL ver si hay modificaciones en GITHUB
+	https://github.com/mahshakti/minish3ll/tree/hotfix (Hacer git fetch ayuda a comprobar cambios)
+- [!] Hacer todas las pruebas con valgrind o en modo debug (gdb) si da fallos de segmentación
+
 ## POR HACER
 - [X] Revisar export a="algo=k", Se divide en 2
 a=
@@ -21,7 +26,6 @@ EXTRA: Apaño en parse_utils.c->manage_output() para crear todos los archivos, a
 - [+] Añadido nombre de comando a mensaje de error para pasar tests
 - [+] Seteado $OLDPWD a null cuando entra a minishell en init_shell()
 - [+] Eliminado ';' de echo $PWD; en parse.c->args_to_dllist()
-
 - [X] Pipe como comando da error
 - [X] exit con número
 - [X] dar error si se ejecuta minishel sin variables de entorno
@@ -33,11 +37,19 @@ EXTRA: Apaño en parse_utils.c->manage_output() para crear todos los archivos, a
 	Con ls | cat no sucede, con cat | ls sí (en este caso es normal), echo . | ls OK
 	<!> Parece arreglado. (Era un problema de cierre de pipe en executor.c->execute_execs())
 
-  - [ ] error en valgrind con " sola por ejemplo(echo palabra"), lo mismo con '
-  - [ ] Error en valgrind al usar echo $?
-  - [ ] Error de prompt al usar ^\
+- [X] error en valgrind con " sola por ejemplo(echo palabra"), lo mismo con '
+- [X] Error en valgrind al usar echo $?
+- [X] Error de prompt al usar ^\
+- [ ] cd ~ error valgrind
+	==2107990==    by 0x10DA46: ft_strdup (ft_strdup.c:23)
+	==2107990==    by 0x10C3E9: args_to_dllist (parser.c:31)
+- [+] cd ~ ahora muestra /home/user en el prompt en vez de ~
+- [X] Error segmentation fault al ./minishell |. Que se arregla NO permitiendo parametros en ./minishell
 
 ## COSAS QUE NO ES NECESARIO HACER
+- [x] Solucionar still reachable: 214,833 bytes in 489 blocks
+	Se puede ver con valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all ./minishell
+	que esos leaks pertenecen a readline()
 - [-] cd - se interpreta como cd a OLDPWD, ¿ES NECESARIO?, solo rutas
 - [?] Still reachable de readline
 - [X] cd sin argumentos no debería hacer nada según subject, y actualmente va a $HOME.
@@ -130,7 +142,9 @@ En teoría es así. En child_utils.c -> get_path_exec() se llama a env_path_to_a
 
 ## COSAS
 - norminette -R CheckForbiddenSourceHeader **/*.c **/*.h 2>/dev/null
-- valgrind --leak-check=full --track-origins=yes ./minishell -c 'ecfreho hola'
+- valgrind --leak-check=full --track-origins=yes ./minishell
+- valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all ./minishell
+
 - valgrind --leak-check=full --track-origins=yes "env -i ./minishell" ---------
 - env -i ./minishell
 - ps -a
@@ -170,3 +184,19 @@ minishell_test -p /home/user/Documentos/box/minish3ll builtin/pwd
 utils.c->print_error
 	// Colored 
 	printf("%sminishell: %s: %s%s", RED, func, msg, ENDC);
+
+
+
+	/* BYPASS
+
+	if (argc > 2 && !ft_strcmp(argv[1], "-c"))
+	{
+		shell->input = ft_strdup(argv[2]);
+		fill_lists(shell);
+		execute_execs(shell);
+		free_input(shell);
+		restore_signals();
+		free_all(shell);
+		return (shell->exit_stat);
+	}
+	BYPASS */

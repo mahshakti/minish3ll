@@ -6,7 +6,7 @@
 /*   By: csubires <csubires@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 16:20:22 by csubires          #+#    #+#             */
-/*   Updated: 2024/11/21 12:16:05 by csubires         ###   ########.fr       */
+/*   Updated: 2024/11/22 11:57:35 by csubires         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,6 @@
 # include "libft/libft.h"
 # include "dlinked_list/dlinked_list.h"
 
-# define MSG_BYE	"Bye Bye\n"
-
 # define ERR_ARG	"the args for this program are not available\n"
 # define ERR_MALLOC "error to create malloc\n"
 # define ERR_MANY	"too many arguments\n"
@@ -44,6 +42,7 @@
 # define ERR_EXPO	"not a valid identifier\n"
 # define ERR_TOKEN	"syntax error near unexpected token\n"
 # define ERR_EXIT	"numeric argument required\n"
+# define ERR_EVNOTF	"environment variables not found\n"
 
 # define RED	"\033[1;31m"
 # define GREEN	"\033[1;32m"
@@ -114,7 +113,6 @@ void		execute_execs(t_shell *shell);
 char		**args_to_array(t_exec *exec_cmd);
 char		**envp_to_array(t_shell *shell);
 int			is_builtin(char *exec_str);
-void		free_exec_arrays(char *env[], char *arg[]);
 
 //			EXECUTOR/CHILD.C
 void		execute_child(t_shell *shell, char **env, char **arg, \

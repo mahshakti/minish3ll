@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jesumore <jesumore@student.42.fr>          +#+  +:+       +#+        */
+/*   By: csubires <csubires@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 16:19:52 by csubires          #+#    #+#             */
-/*   Updated: 2024/11/21 15:00:31 by jesumore         ###   ########.fr       */
+/*   Updated: 2024/11/22 12:38:54 by csubires         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,8 @@ static void	free_input(t_shell *shell)
 		free_tokens(shell);
 	if (shell->exec_list)
 		dlist_clear(&(shell->exec_list), free_execs);
-	if (shell->input)
-	{
-		free(shell->input);
-		shell->input = 0;
-	}
-	if (shell->prompt)
-	{
-		free(shell->prompt);
-		shell->prompt = 0;
-	}
+	free_data(shell->input);
+	free_data(shell->prompt);
 }
 
 static t_shell	*init_shell(char *envp[])
@@ -64,7 +56,7 @@ static char	*get_input(t_shell *shell)
 
 	path = ft_strltrim(get_env_value(shell->env_list, "PWD"), \
 	get_env_value(shell->env_list, "HOME"));
-	if (!path)
+	if (!path || ft_strlen(path) == 1)
 		path = ft_strdup(get_env_value(shell->env_list, "PWD"));
 	else
 		path = ft_strjoin("~", path);
@@ -75,6 +67,7 @@ static char	*get_input(t_shell *shell)
 	shell->input = readline(" $ ");
 	if (!shell->input)
 	{
+		free_input(shell);
 		free_all(shell);
 		exit (0);
 	}
@@ -86,14 +79,14 @@ static char	*get_input(t_shell *shell)
 static void	fill_lists(t_shell *shell)
 {
 	tokens_to_dllist(shell);
-	//if (1)
-	//	print_token_list(shell);
+	if (1)
+		print_token_list(shell);
 	if (!shell->error)
 	{
 		exec_cmd_to_dllist(shell);
 		manage_fds(shell);
-	//	if (1)
-	//		print_exec_list(shell);
+		if (1)
+			print_exec_list(shell);
 	}
 }
 
@@ -102,33 +95,18 @@ int	main(int argc, char *argv[], char *envp[])
 	t_shell	*shell;
 
 	(void)argv;
-
 	if (!*envp)
 	{
-		printf("err envp not found");
+		ft_fdprint(2, "minishell: %s", ERR_EVNOTF);
 		exit (1);
 	}
-
-	//if (argc != 1)
-	//	print_error(-1, (void *)0, ERR_MANY);
+	if (argc != 1)
+	{
+		ft_fdprint(2, "minishell: %s", ERR_MANY);
+		exit (0);
+	}
 	init_signals();
 	shell = init_shell(envp);
-
-	/* BYPASS */
-
-	if (argc > 2 && !ft_strcmp(argv[1], "-c"))
-	{
-		shell->input = ft_strdup(argv[2]);
-		fill_lists(shell);
-		execute_execs(shell);
-		free_input(shell);
-		restore_signals();
-		free_all(shell);
-		return (shell->exit_stat);
-	}
-
-	 /* BYPASS */
-
 	while (1 && !shell->error)
 	{
 		if (get_input(shell) && !is_empty(shell->input))
@@ -144,14 +122,6 @@ int	main(int argc, char *argv[], char *envp[])
 			free_input(shell);
 		}
 	}
-	// while (1 && !shell->error)
-	// {
-	// 	if (!get_input(shell) || is_empty(shell->input))
-	// 		break ;
-	// 	fill_lists(shell);
-	// 	execute_execs(shell);
-	// 	free_input(shell);
-	// }
 	restore_signals();
 	free_all(shell);
 	return (shell->exit_stat);

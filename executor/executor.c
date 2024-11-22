@@ -6,7 +6,7 @@
 /*   By: csubires <csubires@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 11:42:13 by csubires          #+#    #+#             */
-/*   Updated: 2024/11/21 12:16:25 by csubires         ###   ########.fr       */
+/*   Updated: 2024/11/22 11:58:31 by csubires         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,8 @@ static void	execute_bin(t_shell *shell, t_exec *exec_cmd)
 		close(exec_cmd->in_fd);
 	if (exec_cmd->out_fd != 1)
 		close(exec_cmd->out_fd);
-	free_exec_arrays(env_array, arg_array);
+	free_array((void **)env_array);
+	free_array((void **)arg_array);
 }
 
 static void	make_fork(t_shell *shell, t_exec *exec_cmd)

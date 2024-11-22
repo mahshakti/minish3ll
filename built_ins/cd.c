@@ -6,7 +6,7 @@
 /*   By: csubires <csubires@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 10:00:17 by csubires          #+#    #+#             */
-/*   Updated: 2024/11/21 10:11:34 by csubires         ###   ########.fr       */
+/*   Updated: 2024/11/22 12:57:34 by csubires         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,16 @@ static char	*get_working_dir(t_exec	*exec_cmd)
 {
 	char	*path;
 	char	*pwd;
+	char	*tmp_str;
 
 	if (exec_cmd->arg_list && \
 	((char *)exec_cmd->arg_list->data)[0] == '~')
+	{
+		tmp_str = ft_strdup(exec_cmd->arg_list->data);
+		free_data(exec_cmd->arg_list->data);
 		exec_cmd->arg_list->data = ft_strconcat(2, getenv("HOME"), \
-		++exec_cmd->arg_list->data);
+		tmp_str + 1);
+	}
 	if (!exec_cmd->arg_list)
 		return (ft_strdup("."));
 	if (!ft_strcmp(exec_cmd->arg_list->data, "."))

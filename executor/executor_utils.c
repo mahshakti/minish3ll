@@ -6,7 +6,7 @@
 /*   By: csubires <csubires@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 09:51:10 by csubires          #+#    #+#             */
-/*   Updated: 2024/11/12 12:35:01 by csubires         ###   ########.fr       */
+/*   Updated: 2024/11/22 11:57:10 by csubires         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,12 +81,4 @@ char	**envp_to_array(t_shell *shell)
 	}
 	array[x] = 0;
 	return (array);
-}
-
-void	free_exec_arrays(char *env[], char *arg[])
-{
-	if (!env || !arg)
-		return ;
-	free_array((void **)env);
-	free(arg);
 }
