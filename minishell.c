@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csubires <csubires@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jesumore <jesumore@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 16:19:52 by csubires          #+#    #+#             */
-/*   Updated: 2024/11/22 12:38:54 by csubires         ###   ########.fr       */
+/*   Updated: 2024/11/23 19:59:06 by jesumore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,16 @@ static void	free_input(t_shell *shell)
 		free_tokens(shell);
 	if (shell->exec_list)
 		dlist_clear(&(shell->exec_list), free_execs);
-	free_data(shell->input);
-	free_data(shell->prompt);
+	if (shell->input)
+	{
+		free_data(shell->input);
+		shell->input = 0;
+	}
+	if (shell->prompt)
+	{
+		free_data(shell->prompt);
+		shell->prompt = 0;
+	}
 }
 
 static t_shell	*init_shell(char *envp[])

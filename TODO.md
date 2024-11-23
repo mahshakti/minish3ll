@@ -4,6 +4,11 @@
 	https://github.com/mahshakti/minish3ll/tree/hotfix (Hacer git fetch ayuda a comprobar cambios)
 - [!] Hacer todas las pruebas con valgrind o en modo debug (gdb) si da fallos de segmentación
 
+## LEER CRISTOBAL
+
+- He hecho unos cambios al hacer split de los input. He cambiado lo que devuelven las funciones split_tokens y check_token para solucionar el error Invalid read of size 1 al escribir al principio con comilla doble o simple.
+Valgrind ya no da ese error si te parece bien borramos las funciones antiguas comentadas.
+
 ## POR HACER
 - [X] Revisar export a="algo=k", Se divide en 2
 a=
@@ -46,6 +51,7 @@ EXTRA: Apaño en parse_utils.c->manage_output() para crear todos los archivos, a
 - [+] cd ~ ahora muestra /home/user en el prompt en vez de ~
 - [X] Error segmentation fault al ./minishell |. Que se arregla NO permitiendo parametros en ./minishell
 - [X] Error al hacer "echo |". Comprobado que el primer o el último token no sea un metacaracter
+- [X] Error doble free al salir con CTRL+D arreglado.
 
 ## COSAS QUE NO ES NECESARIO HACER
 - [x] Solucionar still reachable: 214,833 bytes in 489 blocks

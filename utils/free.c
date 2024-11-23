@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csubires <csubires@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jesumore <jesumore@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 18:02:49 by csubires          #+#    #+#             */
-/*   Updated: 2024/11/22 12:37:06 by csubires         ###   ########.fr       */
+/*   Updated: 2024/11/23 19:57:51 by jesumore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,11 @@ void	free_all(t_shell *shell)
 			dlist_clear(&shell->env_list, free_env_entry);
 		if (shell->childrenpid_list)
 			dlist_clear(&(shell->childrenpid_list), free_data);
-		free_data(shell->prompt);
-		free_data(shell->input);
-		free_data(shell);
+		if (shell->prompt)
+			free_data(shell->prompt);
+		if (shell->input)
+			free_data(shell->input);
+		if (shell)
+			free_data(shell);
 	}
 }
