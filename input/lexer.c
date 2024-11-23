@@ -91,10 +91,14 @@ static void	replace_with_envp(t_shell *shell)
 void	tokens_to_dllist(t_shell *shell)
 {
 	char	*first_token;
+	char	*last_token;
 
 	replace_with_envp(shell);
 	split_tokens(shell, (char *)shell->input);
 	first_token = (char *)shell->token_list->data;
 	if (first_token && !isnt_metachar(first_token[0]))
 		print_error(1, shell, ERR_TOKEN, 0);
+	last_token = (char *)(dlist_last(shell->token_list)->data);
+	if (last_token && !isnt_metachar(last_token[0]))
+		print_error(1, shell, ERR_TOKEN, 0);	
 }

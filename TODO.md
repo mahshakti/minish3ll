@@ -40,11 +40,12 @@ EXTRA: Apaño en parse_utils.c->manage_output() para crear todos los archivos, a
 - [X] error en valgrind con " sola por ejemplo(echo palabra"), lo mismo con '
 - [X] Error en valgrind al usar echo $?
 - [X] Error de prompt al usar ^\
-- [ ] cd ~ error valgrind
+- [X] cd ~ error valgrind
 	==2107990==    by 0x10DA46: ft_strdup (ft_strdup.c:23)
 	==2107990==    by 0x10C3E9: args_to_dllist (parser.c:31)
 - [+] cd ~ ahora muestra /home/user en el prompt en vez de ~
 - [X] Error segmentation fault al ./minishell |. Que se arregla NO permitiendo parametros en ./minishell
+- [X] Error al hacer "echo |". Comprobado que el primer o el último token no sea un metacaracter
 
 ## COSAS QUE NO ES NECESARIO HACER
 - [x] Solucionar still reachable: 214,833 bytes in 489 blocks

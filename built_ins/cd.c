@@ -44,14 +44,17 @@ static char	*get_working_dir(t_exec	*exec_cmd)
 	char	*path;
 	char	*pwd;
 	char	*tmp_str;
+	char	*tmp_str2;
 
 	if (exec_cmd->arg_list && \
 	((char *)exec_cmd->arg_list->data)[0] == '~')
 	{
 		tmp_str = ft_strdup(exec_cmd->arg_list->data);
 		free_data(exec_cmd->arg_list->data);
-		exec_cmd->arg_list->data = ft_strconcat(2, getenv("HOME"), \
+		tmp_str2 = ft_strconcat(2, getenv("HOME"), \
 		tmp_str + 1);
+		exec_cmd->arg_list->data = tmp_str2;
+		free(tmp_str);
 	}
 	if (!exec_cmd->arg_list)
 		return (ft_strdup("."));
