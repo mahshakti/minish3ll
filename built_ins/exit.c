@@ -6,7 +6,7 @@
 /*   By: csubires <csubires@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 10:01:46 by csubires          #+#    #+#             */
-/*   Updated: 2024/11/21 12:19:13 by csubires         ###   ########.fr       */
+/*   Updated: 2024/11/25 11:17:27 by csubires         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 void	buildin_exit(t_shell *shell, t_exec *exec_cmd)
 {
 	char	*tmp_str;
-	(void)shell;
 
 	if (exec_cmd->arg_list)
 	{

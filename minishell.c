@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jesumore <jesumore@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: csubires <csubires@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 16:19:52 by csubires          #+#    #+#             */
-/*   Updated: 2024/11/23 19:59:06 by jesumore         ###   ########.fr       */
+/*   Updated: 2024/11/25 11:30:21 by csubires         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ static char	*get_input(t_shell *shell)
 		path = ft_strjoin("~", path);
 	shell->prompt = ft_strconcat(5, YELLOW, "42@minishell:", GREEN, \
 	path, ENDC);
-    printf("%s\n", shell->prompt);
+	printf("%s\n", shell->prompt);
 	free(path);
 	shell->input = readline(" $ ");
 	if (!shell->input)
@@ -103,16 +103,7 @@ int	main(int argc, char *argv[], char *envp[])
 	t_shell	*shell;
 
 	(void)argv;
-	if (!*envp)
-	{
-		ft_fdprint(2, "minishell: %s", ERR_EVNOTF);
-		exit (1);
-	}
-	if (argc != 1)
-	{
-		ft_fdprint(2, "minishell: %s", ERR_MANY);
-		exit (0);
-	}
+	check_args(argc, envp);
 	init_signals();
 	shell = init_shell(envp);
 	while (1 && !shell->error)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jesumore <jesumore@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: csubires <csubires@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 16:20:22 by csubires          #+#    #+#             */
-/*   Updated: 2024/11/23 22:12:13 by jesumore         ###   ########.fr       */
+/*   Updated: 2024/11/25 11:31:27 by csubires         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ void		envp_to_dllist(t_shell *shell, char *envp[]);
 //			ENVIRONMENT/ENVP_UTILS.C
 char		**split_env_item(char *envp, char separator);
 void		free_env_entry(void *entry);
+void		check_args(int argc, char *envp[]);
 
 //			EXECUTOR/EXECUTOR.C
 void		execute_execs(t_shell *shell);

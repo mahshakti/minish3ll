@@ -21,7 +21,7 @@ cuando debería ser a=algo=k
 	Nadie lo hace?, Ojo con unset SHLVL (Implementado en init_shell())
 - [X] Revisar el ft_strconcat y ft_strdup (Problemas con el prompt)
 	Se hizo un apaño imprimiendo con printf el prompt en vez de meterlo todo en el readline(). A readline no le gusta los códigos de colores?
-- [ ] COMPROBAR COMILLAS, SIMPLES O DOBLES, CERRADAS! en export, echo,.. e imprimir ERROR????
+- [?] COMPROBAR COMILLAS, SIMPLES O DOBLES, CERRADAS! en export, echo,.. e imprimir ERROR????
 	Las comillas que están cerradas deben desaparecer (sin dejar un espacio). Pero si están dentro de otras cerradas NO
 - [X] ls -la >> apen3.txt >> apen4.txt No está contemplado ya que con la estructura actual, cada comando tiene una sola variable para in/out, filename/fd. Para realizar lo anterior sería nacesario crear un listado de archivos? para cada comando...
 EXTRA: Apaño en parse_utils.c->manage_output() para crear todos los archivos, aunque solo se escriba en el último.
@@ -36,6 +36,10 @@ EXTRA: Apaño en parse_utils.c->manage_output() para crear todos los archivos, a
 - [X] dar error si se ejecuta minishel sin variables de entorno
 
 ## ERRORES & LEAKS
+
+
+- [ ] echo hola + echo $?
+
 - [X] valgrind export algo=a""sd, leak
 - [X] valgrind en echo heredoc (revisar ft_strjoin), leak
 - [X] Entradas con pipe como env | grep SHLVL se queda experando, en bash no
@@ -68,6 +72,14 @@ EXTRA: Apaño en parse_utils.c->manage_output() para crear todos los archivos, a
 - [ ] COMPROBAR QUE NO SE USAN FUNCIONES PROHIBIDAS
 - [ ] Quitar posibles comentarios y debug code (utils/dbg_print.c, y minishell.h) antes de entrega, NORMA
 
+
+
+- [ ] echo "''$PWD'''qwere"qwqwer$P$P$PWD"'$PWD'"
+- [ ] export a="ls -la" + a
+
+
+
+
 echo $(pwd) ??????????
 echo "cat lol.c | " cat > lol.c"> "
 user@darkc:/tmp$ echo 'cat lol.c | " cat > lol.c'
@@ -79,16 +91,11 @@ cat | cat | ls
 ls | wc
 << eof | cat, cat | cat | ls
 echo -nnnnnnnnn -n -nnnnnm
-|
-ls | | wc
-ls |;
-ls |&
 $_
 echo $TEST > $TEST
 unset PWD
 cd ... x 8
 ls /*/
-export a="ls -la"
 $a
 l's'
 export a =asd

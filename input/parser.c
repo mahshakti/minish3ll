@@ -6,7 +6,7 @@
 /*   By: csubires <csubires@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 18:43:18 by csubires          #+#    #+#             */
-/*   Updated: 2024/11/22 12:27:22 by csubires         ###   ########.fr       */
+/*   Updated: 2024/11/25 11:03:04 by csubires         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void	args_to_dllist(t_shell *shell, t_exec *exec_cmd, char *data)
 {
 	t_dllist	*arg_node;
 
-	if (data && data[(ft_strlen(data)) - 1] == ';')
+	if (data && ft_strlen(data) > 1 && data[(ft_strlen(data)) - 1] == ';')
 		data[(ft_strlen(data)) - 1] = '\0';
 	arg_node = dlist_new(ft_strdup(data));
 	if (!arg_node)

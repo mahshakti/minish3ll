@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jesumore <jesumore@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: csubires <csubires@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 18:02:49 by csubires          #+#    #+#             */
-/*   Updated: 2024/11/23 19:57:51 by jesumore         ###   ########.fr       */
+/*   Updated: 2024/11/25 10:40:15 by csubires         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,26 +29,8 @@ void	free_tokens(t_shell *shell)
 
 static void	free_args(t_dllist *args)
 {
-
 	dlist_clear(&(args), free_data);
 	args = 0;
-
-/*
-	
-	t_dllist	*tmp_list;
-	t_dllist	*next_arg;
-
-	tmp_list = args;
-	while (tmp_list)
-	{
-		next_arg = tmp_list->next;
-		if (tmp_list->data)
-			free_data(tmp_list->data);
-		free(tmp_list);
-		tmp_list = 0;
-		tmp_list = next_arg;
-	}
-	*/
 }
 
 void	free_execs(void *item)

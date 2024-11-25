@@ -3,34 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jesumore <jesumore@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: csubires <csubires@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 18:39:58 by csubires          #+#    #+#             */
-/*   Updated: 2024/11/23 22:55:10 by jesumore         ###   ########.fr       */
+/*   Updated: 2024/11/25 11:15:11 by csubires         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-// static void	check_token(t_shell *shell, char *input, int *x)
-// {
-// 	int		start;
-// 	int		end;
-// 	char	quote;
-// 	char	before_quote;
-
-// 	if (input[*x] && (input[*x] == '\'' || input[*x] == '\"'))
-// 	{
-// 		before_quote = input[*x - 1];
-// 		quote = input[*x];
-// 		start = ++(*x);
-// 		while (input[*x] && input[*x] != quote)
-// 			(*x)++;
-// 		end = *x;
-// 		token_to_dllist(shell, start, end, before_quote);
-// 		(*x)++;
-// 	}
-// }
 
 static int	check_token(t_shell *shell, char *input, int *x)
 {
@@ -55,28 +35,6 @@ static int	check_token(t_shell *shell, char *input, int *x)
 	}
 	return (0);
 }
-
-// static void	split_tokens(t_shell *shell, char *input)
-// {
-// 	int		x;
-
-// 	if (!*input)
-// 		return ;
-// 	x = 0;
-// 	while (x < (int)ft_strlen(input))
-// 	{
-// 		check_token(shell, input, &x);
-// 		if (x >= (int)ft_strlen(input))
-// 			break ;
-// 		set_redirect(shell, input, &x);
-// 		if (x >= (int)ft_strlen(input))
-// 			break ;
-// 		if (!ft_isprint(input[x]) || ft_isspace(input[x]))
-// 			x++;
-// 		else
-// 			tokenise_arg(shell, input, &x);
-// 	}
-// }
 
 static int	split_tokens(t_shell *shell, char *input)
 {
@@ -136,21 +94,6 @@ static void	replace_with_envp(t_shell *shell)
 	}
 }
 
-// void	tokens_to_dllist(t_shell *shell)
-// {
-// 	char	*first_token;
-// 	char	*last_token;
-
-// 	replace_with_envp(shell);
-// 	split_tokens(shell, (char *)shell->input);
-// 	first_token = (char *)shell->token_list->data;
-// 	if (first_token && !isnt_metachar(first_token[0]))
-// 		print_error(1, shell, ERR_TOKEN, 0);
-// 	last_token = (char *)(dlist_last(shell->token_list)->data);
-// 	if (last_token && !isnt_metachar(last_token[0]))
-// 		print_error(1, shell, ERR_TOKEN, 0);	
-// }
-
 void	tokens_to_dllist(t_shell *shell)
 {
 	char	*first_token;
@@ -163,9 +106,17 @@ void	tokens_to_dllist(t_shell *shell)
 		return ;
 	}
 	first_token = (char *)shell->token_list->data;
-	if (first_token && !isnt_metachar(first_token[0]))
+	if (first_token && (first_token[0] != '\"') && \
+	(first_token[0] != '\'') && !isnt_metachar(first_token[0]))
+	{
 		print_error(1, shell, ERR_TOKEN, 0);
+		return ;
+	}
 	last_token = (char *)(dlist_last(shell->token_list)->data);
-	if (last_token && !isnt_metachar(last_token[0]))
-		print_error(1, shell, ERR_TOKEN, 0);	
+	if (last_token && (last_token[0] != '\"') && \
+	(last_token[0] != '\'') && !isnt_metachar(last_token[0]))
+	{
+		print_error(1, shell, ERR_TOKEN, 0);
+		return ;
+	}
 }

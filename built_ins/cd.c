@@ -6,7 +6,7 @@
 /*   By: csubires <csubires@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 10:00:17 by csubires          #+#    #+#             */
-/*   Updated: 2024/11/22 12:57:34 by csubires         ###   ########.fr       */
+/*   Updated: 2024/11/25 11:27:23 by csubires         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,23 +39,27 @@ static void	update_pwd(t_shell *shell, char *old_pwd, char *new_pwd)
 		print_error(1, (void *)0, ERR_PATH, "cd");
 }
 
+static void	expand_home(t_exec	*exec_cmd)
+{
+	char	*tmp_str;
+	char	*tmp_str2;
+
+	if (exec_cmd->arg_list && ((char *)exec_cmd->arg_list->data)[0] == '~')
+	{
+		tmp_str = ft_strdup(exec_cmd->arg_list->data);
+		free_data(exec_cmd->arg_list->data);
+		tmp_str2 = ft_strconcat(2, getenv("HOME"), tmp_str + 1);
+		exec_cmd->arg_list->data = tmp_str2;
+		free(tmp_str);
+	}
+}
+
 static char	*get_working_dir(t_exec	*exec_cmd)
 {
 	char	*path;
 	char	*pwd;
-	char	*tmp_str;
-	char	*tmp_str2;
 
-	if (exec_cmd->arg_list && \
-	((char *)exec_cmd->arg_list->data)[0] == '~')
-	{
-		tmp_str = ft_strdup(exec_cmd->arg_list->data);
-		free_data(exec_cmd->arg_list->data);
-		tmp_str2 = ft_strconcat(2, getenv("HOME"), \
-		tmp_str + 1);
-		exec_cmd->arg_list->data = tmp_str2;
-		free(tmp_str);
-	}
+	expand_home(exec_cmd);
 	if (!exec_cmd->arg_list)
 		return (ft_strdup("."));
 	if (!ft_strcmp(exec_cmd->arg_list->data, "."))
