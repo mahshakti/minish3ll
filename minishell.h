@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csubires <csubires@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jesumore <jesumore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 16:20:22 by csubires          #+#    #+#             */
-/*   Updated: 2024/11/25 13:57:49 by csubires         ###   ########.fr       */
+/*   Updated: 2024/11/25 17:08:31 by jesumore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,7 @@ void		expand_envp(t_shell *shell, int *x);
 
 //			INPUT/LEXER.C
 void		tokens_to_dllist(t_shell *shell);
+int			token_to_dllist_check(t_shell *shell);
 
 //			INPUT/LEXER_UTILS.C
 void		token_to_dllist(t_shell *shell, int start, int end, \
@@ -142,6 +143,9 @@ void		token_to_dllist(t_shell *shell, int start, int end, \
 void		set_redirect(t_shell *shell, char *input, int *x);
 void		tokenise_arg(t_shell *shell, char *input, int *x);
 int			isnt_metachar(char c);
+void		replace_with_envp(t_shell *shell);
+int			split_tokens(t_shell *shell, char *input);
+
 
 //			INPUT/PARSER.C
 void		exec_cmd_to_dllist(t_shell *shell);

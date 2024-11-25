@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: csubires <csubires@student.42.fr>          +#+  +:+       +#+         #
+#    By: jesumore <jesumore@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/28 13:48:18 by csubires          #+#    #+#              #
-#    Updated: 2024/11/25 12:46:53 by csubires         ###   ########.fr        #
+#    Updated: 2024/11/25 16:50:01 by jesumore         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ MAIN_C		= minishell.c
 BUILTINS_C	= cd.c echo.c env.c exit.c export.c pwd.c unset.c builtin_utils.c
 ENVIRON_C	= envp.c envp_utils.c
 EXECUTOR_C	= executor.c executor_utils.c child.c child_utils.c fds.c fds_utils.c
-INPUT_C		= expander.c lexer.c lexer_utils.c parser.c parser_utils.c
+INPUT_C		= expander.c lexer.c lexer_utils.c lexer_utils_2.c parser.c parser_utils.c
 UTILS_C		= free.c utils.c signals.c dbg_print.c
 
 LIBFT_A		= libft/libft.a

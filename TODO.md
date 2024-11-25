@@ -4,11 +4,6 @@
 	https://github.com/mahshakti/minish3ll/tree/hotfix (Hacer git fetch ayuda a comprobar cambios)
 - [!] Hacer todas las pruebas con valgrind o en modo debug (gdb) si da fallos de segmentación
 
-## LEER CRISTOBAL
-
-- He hecho unos cambios al hacer split de los input. He cambiado lo que devuelven las funciones split_tokens y check_token para solucionar el error Invalid read of size 1 al escribir al principio con comilla doble o simple.
-Valgrind ya no da ese error si te parece bien borramos las funciones antiguas comentadas.
-
 ## POR HACER
 - [X] Revisar export a="algo=k", Se divide en 2
 a=
@@ -35,11 +30,11 @@ EXTRA: Apaño en parse_utils.c->manage_output() para crear todos los archivos, a
 - [X] exit con número
 - [X] dar error si se ejecuta minishel sin variables de entorno
 
-- [ ] Norminette a lexer.c. Dividir función tokens_to_dllist
+- [X] Norminette a lexer.c. Dividir función tokens_to_dllist
 
 ## ERRORES & LEAKS
 
-- [ ] echo hola + echo $?
+- [X] echo hola + echo $?
 
 - [X] valgrind export algo=a""sd, leak
 - [X] valgrind en echo heredoc (revisar ft_strjoin), leak
@@ -75,8 +70,8 @@ EXTRA: Apaño en parse_utils.c->manage_output() para crear todos los archivos, a
 
 
 
-- [ ] echo "''$PWD'''qwere"qwqwer$P$P$PWD"'$PWD'"
-- [ ] export a="ls -la" + a
+- [X] echo "''$PWD'''qwere"qwqwer$P$P$PWD"'$PWD'"
+- [X] export a="ls -la" + a
 
 
 

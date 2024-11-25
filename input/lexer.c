@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: csubires <csubires@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jesumore <jesumore@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 18:39:58 by csubires          #+#    #+#             */
-/*   Updated: 2024/11/25 13:33:30 by csubires         ###   ########.fr       */
+/*   Updated: 2024/11/25 17:07:44 by jesumore         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static int	check_token(t_shell *shell, char *input, int *x)
 	return (0);
 }
 
-static int	split_tokens(t_shell *shell, char *input)
+int	split_tokens(t_shell *shell, char *input)
 {
 	int		x;
 
@@ -59,7 +59,6 @@ static int	split_tokens(t_shell *shell, char *input)
 	}
 	return (0);
 }
-
 static void	manage_quotes(char c, int *flag)
 {
 	if (!*flag)
@@ -75,7 +74,7 @@ static void	manage_quotes(char c, int *flag)
 		*flag = 4;
 }
 
-static void	replace_with_envp(t_shell *shell)
+void	replace_with_envp(t_shell *shell)
 {
 	int		flag;
 	int		x;
@@ -99,17 +98,8 @@ void	tokens_to_dllist(t_shell *shell)
 	char	*first_token;
 	char	*last_token;
 
-	replace_with_envp(shell);
-	if (split_tokens(shell, (char *)shell->input) == 1)
-	{
-		print_error(1, shell, ERR_FIRST_QUOTE, 0);
+	if (token_to_dllist_check(shell) != 0)
 		return ;
-	}
-	if (!shell->token_list || !shell->token_list->data)
-	{
-		print_error(1, shell, ERR_TOKEN, 0);
-		return ;
-	}
 	first_token = (char *)shell->token_list->data;
 	if (first_token && (first_token[0] != '\"') && \
 	(first_token[0] != '\'') && !isnt_metachar(first_token[0]))
