@@ -6,7 +6,7 @@
 /*   By: csubires <csubires@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 18:39:58 by csubires          #+#    #+#             */
-/*   Updated: 2024/11/25 11:15:11 by csubires         ###   ########.fr       */
+/*   Updated: 2024/11/25 13:33:30 by csubires         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int	check_token(t_shell *shell, char *input, int *x)
 
 	if (input[*x] && (input[*x] == '\'' || input[*x] == '\"'))
 	{
-		if (*x == 0)
+		if (*x == 0 && input[*x] > 126)
 			return (1);
 		else
 			before_quote = input[*x - 1];
@@ -103,6 +103,11 @@ void	tokens_to_dllist(t_shell *shell)
 	if (split_tokens(shell, (char *)shell->input) == 1)
 	{
 		print_error(1, shell, ERR_FIRST_QUOTE, 0);
+		return ;
+	}
+	if (!shell->token_list || !shell->token_list->data)
+	{
+		print_error(1, shell, ERR_TOKEN, 0);
 		return ;
 	}
 	first_token = (char *)shell->token_list->data;

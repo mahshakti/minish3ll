@@ -6,7 +6,7 @@
 #    By: csubires <csubires@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/28 13:48:18 by csubires          #+#    #+#              #
-#    Updated: 2024/11/06 10:59:59 by csubires         ###   ########.fr        #
+#    Updated: 2024/11/25 12:46:53 by csubires         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ OBJS_DIR	= obj
 OBJS		= $(addprefix $(OBJS_DIR)/,$(SRCS:%.c=%.o))
 
 CC			= gcc
-CFLAGS		= -Wall -Werror -Wextra -g -O0 -I.
+CFLAGS		= -Wall -Werror -Wextra -g -O0 -Wno-multichar -I.
 OFLAGS		= $(CFLAGS)
 CFLAGS		+= -lreadline -L. -l:$(LIBFT_A) -l:$(DL_LIST_A)
 MAKEFLAGS	+= --no-print-directory

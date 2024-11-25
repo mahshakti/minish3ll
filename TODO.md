@@ -35,8 +35,9 @@ EXTRA: Apaño en parse_utils.c->manage_output() para crear todos los archivos, a
 - [X] exit con número
 - [X] dar error si se ejecuta minishel sin variables de entorno
 
-## ERRORES & LEAKS
+- [ ] Norminette a lexer.c. Dividir función tokens_to_dllist
 
+## ERRORES & LEAKS
 
 - [ ] echo hola + echo $?
 

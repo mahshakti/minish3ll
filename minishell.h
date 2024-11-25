@@ -6,7 +6,7 @@
 /*   By: csubires <csubires@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 16:20:22 by csubires          #+#    #+#             */
-/*   Updated: 2024/11/25 11:31:27 by csubires         ###   ########.fr       */
+/*   Updated: 2024/11/25 13:57:49 by csubires         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,6 @@ typedef struct s_shell
 	t_dllist	*exec_list;
 	t_dllist	*childrenpid_list;
 	char		*input;
-	char		*prompt;
 	int			num_of_cmds;
 	int			exit_stat;
 	int			error;

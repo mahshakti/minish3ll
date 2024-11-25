@@ -6,7 +6,7 @@
 /*   By: csubires <csubires@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 18:02:49 by csubires          #+#    #+#             */
-/*   Updated: 2024/11/25 10:40:15 by csubires         ###   ########.fr       */
+/*   Updated: 2024/11/25 13:58:43 by csubires         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,6 @@ void	free_all(t_shell *shell)
 			dlist_clear(&shell->env_list, free_env_entry);
 		if (shell->childrenpid_list)
 			dlist_clear(&(shell->childrenpid_list), free_data);
-		if (shell->prompt)
-			free_data(shell->prompt);
 		if (shell->input)
 			free_data(shell->input);
 		if (shell)

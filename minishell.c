@@ -6,7 +6,7 @@
 /*   By: csubires <csubires@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 16:19:52 by csubires          #+#    #+#             */
-/*   Updated: 2024/11/25 11:30:21 by csubires         ###   ########.fr       */
+/*   Updated: 2024/11/25 13:57:42 by csubires         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,8 @@ static void	free_input(t_shell *shell)
 		dlist_clear(&(shell->exec_list), free_execs);
 	if (shell->input)
 	{
-		free_data(shell->input);
+		free(shell->input);
 		shell->input = 0;
-	}
-	if (shell->prompt)
-	{
-		free_data(shell->prompt);
-		shell->prompt = 0;
 	}
 }
 
@@ -61,6 +56,7 @@ static t_shell	*init_shell(char *envp[])
 static char	*get_input(t_shell *shell)
 {
 	char	*path;
+	char	*tmp_concat;
 
 	path = ft_strltrim(get_env_value(shell->env_list, "PWD"), \
 	get_env_value(shell->env_list, "HOME"));
@@ -68,10 +64,11 @@ static char	*get_input(t_shell *shell)
 		path = ft_strdup(get_env_value(shell->env_list, "PWD"));
 	else
 		path = ft_strjoin("~", path);
-	shell->prompt = ft_strconcat(5, YELLOW, "42@minishell:", GREEN, \
+	tmp_concat = ft_strconcat(5, YELLOW, "42@minishell:", GREEN, \
 	path, ENDC);
-	printf("%s\n", shell->prompt);
+	printf("%s\n", tmp_concat);
 	free(path);
+	free(tmp_concat);
 	shell->input = readline(" $ ");
 	if (!shell->input)
 	{
