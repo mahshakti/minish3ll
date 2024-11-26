@@ -56,19 +56,15 @@ static t_shell	*init_shell(char *envp[])
 static char	*get_input(t_shell *shell)
 {
 	char	*path;
-	char	*tmp_concat;
 
 	path = ft_strltrim(get_env_value(shell->env_list, "PWD"), \
 	get_env_value(shell->env_list, "HOME"));
 	if (!path || ft_strlen(path) == 1)
-		path = ft_strdup(get_env_value(shell->env_list, "PWD"));
+		printf("%s%s%s%s%s\n", YELLOW, "42@minishell:", GREEN, \
+		get_env_value(shell->env_list, "PWD"), ENDC);
 	else
-		path = ft_strjoin("~", path);
-	tmp_concat = ft_strconcat(5, YELLOW, "42@minishell:", GREEN, \
-	path, ENDC);
-	printf("%s\n", tmp_concat);
-	free(path);
-	free(tmp_concat);
+		printf("%s%s%s%s%s%s\n", YELLOW, "42@minishell:", GREEN, \
+		"~", path, ENDC);
 	shell->input = readline(" $ ");
 	if (!shell->input)
 	{
@@ -78,6 +74,8 @@ static char	*get_input(t_shell *shell)
 	}
 	if (*(shell->input))
 		add_history(shell->input);
+	else
+		free_input(shell);
 	return (shell->input);
 }
 
