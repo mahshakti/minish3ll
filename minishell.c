@@ -82,14 +82,10 @@ static char	*get_input(t_shell *shell)
 static void	fill_lists(t_shell *shell)
 {
 	tokens_to_dllist(shell);
-	if (1)
-		print_token_list(shell);
 	if (!shell->error)
 	{
 		exec_cmd_to_dllist(shell);
 		manage_fds(shell);
-		if (1)
-			print_exec_list(shell);
 	}
 }
 

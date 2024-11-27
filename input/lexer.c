@@ -21,7 +21,7 @@ static int	check_token(t_shell *shell, char *input, int *x)
 
 	if (input[*x] && (input[*x] == '\'' || input[*x] == '\"'))
 	{
-		if (*x == 0 && input[*x] > 126)
+		if (*x == 0)
 			return (1);
 		else
 			before_quote = input[*x - 1];
@@ -59,6 +59,7 @@ int	split_tokens(t_shell *shell, char *input)
 	}
 	return (0);
 }
+
 static void	manage_quotes(char c, int *flag)
 {
 	if (!*flag)

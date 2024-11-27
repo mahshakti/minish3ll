@@ -15,7 +15,7 @@ BUILTINS_C	= cd.c echo.c env.c exit.c export.c pwd.c unset.c builtin_utils.c
 ENVIRON_C	= envp.c envp_utils.c
 EXECUTOR_C	= executor.c executor_utils.c child.c child_utils.c fds.c fds_utils.c
 INPUT_C		= expander.c lexer.c lexer_utils.c lexer_utils_2.c parser.c parser_utils.c
-UTILS_C		= free.c utils.c signals.c dbg_print.c
+UTILS_C		= free.c utils.c signals.c
 
 LIBFT_A		= libft/libft.a
 DL_LIST_A	= dlinked_list/dlinked_list.a

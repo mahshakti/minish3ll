@@ -29,7 +29,7 @@ void		dlist_add_after(t_dllist **dllist, t_dllist *new);
 void		dlist_clear(t_dllist **dllist, void (*del)(void*));
 void		dlist_remove_before(t_dllist **dllist, void (*del)(void*));
 void		dlist_remove(t_dllist **dllist, t_dllist *node, \
-	void (*del)(void*));
+			void (*del)(void*));
 size_t		dlist_has(t_dllist *dllist, t_dllist *node);
 size_t		dlist_size(t_dllist *dlst);
 void		dlist_free(void **node);

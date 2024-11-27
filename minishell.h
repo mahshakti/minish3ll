@@ -45,11 +45,11 @@
 # define ERR_EXIT			"numeric argument required\n"
 # define ERR_EVNOTF			"environment variables not found\n"
 
-# define RED	"\033[1;31m"
-# define GREEN	"\033[1;32m"
-# define YELLOW	"\033[1;33m"
-# define BLUE	"\033[1;34m"
-# define ENDC	"\033[0m"
+# define RED				"\033[1;31m"
+# define GREEN				"\033[1;32m"
+# define YELLOW				"\033[1;33m"
+# define BLUE				"\033[1;34m"
+# define ENDC				"\033[0m"
 
 typedef struct s_envp
 {
@@ -146,7 +146,6 @@ int			isnt_metachar(char c);
 void		replace_with_envp(t_shell *shell);
 int			split_tokens(t_shell *shell, char *input);
 
-
 //			INPUT/PARSER.C
 void		exec_cmd_to_dllist(t_shell *shell);
 
@@ -160,7 +159,6 @@ void		free_data(void *data);
 void		free_execs(void *item);
 
 //			UTILS/SIGNALS.C
-char		*adjust_prompt(char **prompt);
 void		init_signals(void);
 void		restore_signals(void);
 
@@ -168,12 +166,5 @@ void		restore_signals(void);
 int			is_empty(char *str);
 int			print_error(int err, t_shell *shell, char *msg, char *func);
 int			file_exists(char *file_name);
-
-//			UTILS/DBG_PRINT.C
-void		print_token_list(t_shell *shell);
-void		print_exec_list(t_shell *shell);
-void		print_path(char **array_paths);
-void		print_cd_change(t_shell *shell, char *old_pwd, \
-			char *new_pwd, char *path);
 
 #endif

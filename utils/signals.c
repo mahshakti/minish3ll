@@ -12,26 +12,6 @@
 
 #include "../minishell.h"
 
-char	*adjust_prompt(char **prompt)
-{
-	int				term_len;
-	int				prompt_len;
-	char			*new_prompt;
-	struct winsize	w;
-
-	ioctl(1, TIOCGWINSZ, &w);
-	term_len = w.ws_col;
-	prompt_len = ft_strlen(*prompt);
-	if (prompt_len >= (term_len))
-	{
-		new_prompt = ft_calloc((term_len) + 4, sizeof(char));
-		ft_strlcpy(new_prompt, *prompt, term_len);
-		*prompt = ft_strconcat(3, GREEN, "@minishell:...", new_prompt);
-		return (*prompt);
-	}
-	return (*prompt);
-}
-
 static void	manage_sigint(int sig)
 {
 	(void)sig;
