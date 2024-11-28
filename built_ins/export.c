@@ -6,11 +6,19 @@
 /*   By: csubires <csubires@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 09:56:55 by csubires          #+#    #+#             */
-/*   Updated: 2024/11/21 09:32:19 by csubires         ###   ########.fr       */
+/*   Updated: 2024/11/28 10:51:14 by csubires         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+static void	free_item(char **one_var)
+{
+	free(one_var[0]);
+	one_var[0] = 0;
+	free(one_var[1]);
+	one_var[1] = 0;
+}
 
 static size_t	export_arg(t_shell *shell, t_exec *exec_cmd)
 {
@@ -23,16 +31,17 @@ static size_t	export_arg(t_shell *shell, t_exec *exec_cmd)
 	{
 		one_var = split_env_item((char *)tmp_list->data, '=');
 		if (!one_var)
-		{
-			print_error(1, 0, ERR_EXPO, "export");
-			return (0);
-		}
+			return (print_error(1, 0, ERR_EXPO, "export"));
 		node = search_env_item(shell->env_list, one_var[0]);
 		if (node)
+		{
 			update_envp(node, one_var[1]);
+			free_item(one_var);
+		}
 		else
 			insert_env_item(shell, create_env_item(one_var));
 		free(one_var);
+		one_var = 0;
 		tmp_list = tmp_list->next;
 	}
 	shell->exit_stat = 0;
