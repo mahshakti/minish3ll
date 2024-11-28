@@ -6,7 +6,7 @@
 /*   By: csubires <csubires@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 11:42:13 by csubires          #+#    #+#             */
-/*   Updated: 2024/11/22 11:58:31 by csubires         ###   ########.fr       */
+/*   Updated: 2024/11/28 21:29:10 by csubires         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,22 +79,19 @@ static void	make_fork(t_shell *shell, t_exec *exec_cmd)
 	child_pid = ft_calloc(1, sizeof(int));
 	*child_pid = fork();
 	if (*child_pid < 0)
-	{
-		print_error(-1, shell, ERR_FORK, 0);
-		return ;
-	}
+		return ((void)print_error(-1, shell, ERR_FORK, 0));
 	else if (!*child_pid)
 	{
 		restore_signals();
-		execute_bin(shell, exec_cmd);
+		if (is_builtin(exec_cmd->executable) && shell->num_of_cmds > 1)
+			execute_builtin(shell, exec_cmd);
+		else
+			execute_bin(shell, exec_cmd);
 		exit(0);
 	}
 	new_node = dlist_new(child_pid);
 	if (!new_node)
-	{
-		print_error(-1, shell, ERR_FORK, 0);
-		return ;
-	}
+		return ((void)print_error(-1, shell, ERR_FORK, 0));
 	dlist_add_after(&shell->childrenpid_list, new_node);
 }
 
@@ -107,7 +104,7 @@ void	execute_execs(t_shell *shell)
 	while (tmp_list)
 	{
 		exec_cmd = (t_exec *)tmp_list->data;
-		if (is_builtin(exec_cmd->executable))
+		if (is_builtin(exec_cmd->executable) && shell->num_of_cmds == 1)
 			execute_builtin(shell, exec_cmd);
 		else
 			make_fork(shell, exec_cmd);

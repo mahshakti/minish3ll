@@ -6,7 +6,7 @@
 /*   By: csubires <csubires@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 17:30:16 by csubires          #+#    #+#             */
-/*   Updated: 2024/11/25 10:49:41 by csubires         ###   ########.fr       */
+/*   Updated: 2024/11/28 18:16:12 by csubires         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char	**split_env_item(char *envp, char separator)
 	one_var = 0;
 	tmp_envp = (char *)envp;
 	indx = indx_delimiter(tmp_envp, separator);
-	if (!tmp_envp || !indx || tmp_envp[0] == separator)
+	if (!tmp_envp || !*tmp_envp || !indx || tmp_envp[0] == separator)
 		return (0);
 	one_var = (char **)ft_calloc(2, sizeof(char *));
 	if (!one_var || !tmp_envp)

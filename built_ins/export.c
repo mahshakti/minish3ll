@@ -6,7 +6,7 @@
 /*   By: csubires <csubires@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 09:56:55 by csubires          #+#    #+#             */
-/*   Updated: 2024/11/28 10:51:14 by csubires         ###   ########.fr       */
+/*   Updated: 2024/11/28 18:14:25 by csubires         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ size_t	buildin_export(t_shell *shell, t_exec *exec_cmd)
 	stat = 0;
 	if (exec_cmd->arg_list)
 		stat = export_arg(shell, exec_cmd);
+	else
+		stat = buildin_env(shell, exec_cmd);
 	shell->exit_stat = 0;
 	return (stat);
 }

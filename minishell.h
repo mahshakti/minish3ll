@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jesumore <jesumore@student.42.fr>          +#+  +:+       +#+        */
+/*   By: csubires <csubires@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 16:20:22 by csubires          #+#    #+#             */
-/*   Updated: 2024/11/25 17:08:31 by jesumore         ###   ########.fr       */
+/*   Updated: 2024/11/28 21:44:23 by csubires         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@
 # define ERR_UP_ENV			"error when updating the environment variable\n"
 # define ERR_PATH			"no such file or directory\n"
 # define ERR_NOTCMD			"command not found\n"
-# define ERR_CHILD			"execute_child error\n"
+# define ERR_CHILD			"command not found\n"
 # define ERR_FORK			"exec_parent fork error\n"
 # define ERR_FD				"error manage fd\n"
 # define ERR_ASIG			"bad assignment\n"
@@ -131,11 +131,13 @@ void		manage_output_fd(t_exec *exec_cmd, t_dllist *tmp_list);
 void		manage_heredoc(t_shell *shell);
 
 //			INPUT/EXPANDER.C
+char		*ft_strreplace(char *str, int start, int end, char *substr);
 void		expand_envp(t_shell *shell, int *x);
 
 //			INPUT/LEXER.C
+int			split_tokens(t_shell *shell, char *input);
+void		replace_with_envp(t_shell *shell);
 void		tokens_to_dllist(t_shell *shell);
-int			token_to_dllist_check(t_shell *shell);
 
 //			INPUT/LEXER_UTILS.C
 void		token_to_dllist(t_shell *shell, int start, int end, \
@@ -143,8 +145,11 @@ void		token_to_dllist(t_shell *shell, int start, int end, \
 void		set_redirect(t_shell *shell, char *input, int *x);
 void		tokenise_arg(t_shell *shell, char *input, int *x);
 int			isnt_metachar(char c);
-void		replace_with_envp(t_shell *shell);
-int			split_tokens(t_shell *shell, char *input);
+
+//			INPUT/LEXER_UTILS_2.C
+int			token_to_dllist_check(t_shell *shell);
+void		replace_value(t_shell *shell, int *x, char *key, \
+			char *value);
 
 //			INPUT/PARSER.C
 void		exec_cmd_to_dllist(t_shell *shell);
@@ -166,5 +171,9 @@ void		restore_signals(void);
 int			is_empty(char *str);
 int			print_error(int err, t_shell *shell, char *msg, char *func);
 int			file_exists(char *file_name);
+
+//			UTILS/DBG_PRINT.C
+void		print_exec_list(t_shell *shell);
+void		print_token_list(t_shell *shell);
 
 #endif

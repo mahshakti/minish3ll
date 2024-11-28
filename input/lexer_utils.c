@@ -6,7 +6,7 @@
 /*   By: csubires <csubires@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 18:50:55 by csubires          #+#    #+#             */
-/*   Updated: 2024/11/28 11:29:29 by csubires         ###   ########.fr       */
+/*   Updated: 2024/11/28 20:07:29 by csubires         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int	isnt_metachar(char c)
 {
 	char	*invalid_chars;
 
-	invalid_chars = "<>|\'\"";
+	invalid_chars = "|\'\"";
 	if (ft_strchr(invalid_chars, c))
 		return (0);
 	else if (!ft_isprint(c) || ft_isspace(c))

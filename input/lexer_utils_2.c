@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_utils_2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jesumore <jesumore@student.42.fr>          +#+  +:+       +#+        */
+/*   By: csubires <csubires@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 16:44:58 by jesumore          #+#    #+#             */
-/*   Updated: 2024/11/25 17:07:16 by jesumore         ###   ########.fr       */
+/*   Updated: 2024/11/28 22:15:55 by csubires         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,4 +26,27 @@ int	token_to_dllist_check(t_shell *shell)
 		return (1);
 	}
 	return (0);
+}
+
+void	replace_value(t_shell *shell, int *x, char *key, char *value)
+{
+	char	*tmp_str;
+	int		len;
+
+	len = ft_strlen(value);
+	tmp_str = ft_strreplace(shell->input, *x, \
+	(ft_strlen(key) + *x + 1), value);
+	free(shell->input);
+	shell->input = tmp_str;
+	if (key && key[0] == '?')
+	{
+		free(value);
+		value = 0;
+	}
+	if (key)
+	{
+		free(key);
+		key = 0;
+	}
+	*x += len;
 }

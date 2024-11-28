@@ -6,7 +6,7 @@
 /*   By: csubires <csubires@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 10:01:16 by csubires          #+#    #+#             */
-/*   Updated: 2024/11/25 10:40:18 by csubires         ###   ########.fr       */
+/*   Updated: 2024/11/28 17:03:09 by csubires         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,20 +41,14 @@ static void	print_tokens(t_shell *shell, t_exec *exec_cmd)
 	t_dllist	*tmp_list;
 	char		*tmp_str;
 
+	(void)shell;
 	tmp_list = exec_cmd->arg_list;
 	while (tmp_list)
 	{
 		tmp_str = (char *)tmp_list->data;
 		if (tmp_str && (tmp_str[0] == '\\'))
 			tmp_str++;
-		if (!ft_strcmp(tmp_list->data, "$?"))
-			tmp_str = ft_itoa(shell->exit_stat);
 		ft_fdprint(exec_cmd->out_fd, "%s", tmp_str);
-		if (!ft_strcmp(tmp_list->data, "$?"))
-		{
-			free(tmp_str);
-			tmp_str = 0;
-		}
 		tmp_list = tmp_list->next;
 		if (tmp_str && !tmp_str[0] && tmp_list)
 			ft_fdprint(exec_cmd->out_fd, " ");

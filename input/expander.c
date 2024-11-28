@@ -6,13 +6,13 @@
 /*   By: csubires <csubires@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 18:44:53 by csubires          #+#    #+#             */
-/*   Updated: 2024/11/16 13:21:52 by csubires         ###   ########.fr       */
+/*   Updated: 2024/11/28 22:16:10 by csubires         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static char	*ft_strreplace(char *str, int start, int end, char *substr)
+char	*ft_strreplace(char *str, int start, int end, char *substr)
 {
 	char	*pre_str;
 	char	*pos_str;
@@ -66,7 +66,6 @@ static char	*trim_env_key(char *str)
 
 void	expand_envp(t_shell *shell, int *x)
 {
-	char	*tmp_str;
 	char	*key;
 	char	*value;
 
@@ -78,17 +77,12 @@ void	expand_envp(t_shell *shell, int *x)
 		free(key);
 		return ;
 	}
-	if (key && !is_quotes(key[0]))
+	if (key && key[0] == '?')
+		value = ft_itoa(shell->exit_stat);
+	if (key && !value && !is_quotes(key[0]))
 		value = get_env_value(shell->env_list, key);
 	if (!value)
 		empty_value(shell, x, key);
 	else
-	{
-		tmp_str = ft_strreplace(shell->input, *x, \
-		(ft_strlen(key) + *x + 1), value);
-		free(shell->input);
-		shell->input = tmp_str;
-		free(key);
-		*x += ft_strlen(value);
-	}
+		replace_value(shell, x, key, value);
 }
