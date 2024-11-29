@@ -6,7 +6,7 @@
 /*   By: csubires <csubires@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 17:30:16 by csubires          #+#    #+#             */
-/*   Updated: 2024/11/28 18:16:12 by csubires         ###   ########.fr       */
+/*   Updated: 2024/11/29 10:10:37 by csubires         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,15 +36,22 @@ char	**split_env_item(char *envp, char separator)
 	one_var = 0;
 	tmp_envp = (char *)envp;
 	indx = indx_delimiter(tmp_envp, separator);
-	if (!tmp_envp || !*tmp_envp || !indx || tmp_envp[0] == separator)
-		return (0);
+	if (!indx)
+		str_len = ft_strlen(tmp_envp);
 	one_var = (char **)ft_calloc(2, sizeof(char *));
-	if (!one_var || !tmp_envp)
+	if (!one_var || !tmp_envp || !*tmp_envp)
 		return (0);
-	one_var[0] = ft_substr(tmp_envp, 0, indx);
-	tmp_envp += ++indx;
-	str_len = ft_strlen(tmp_envp);
-	one_var[1] = ft_substr(tmp_envp, 0, str_len);
+	if (indx)
+		one_var[0] = ft_substr(tmp_envp, 0, indx);
+	else
+		one_var[0] = ft_substr(tmp_envp, 0, str_len);
+	if (indx)
+	{
+		tmp_envp += ++indx;
+		one_var[1] = ft_substr(tmp_envp, 0, ft_strlen(tmp_envp));
+	}
+	else
+		one_var[1] = 0;
 	return (one_var);
 }
 

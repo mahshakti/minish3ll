@@ -6,7 +6,7 @@
 /*   By: csubires <csubires@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 18:02:16 by csubires          #+#    #+#             */
-/*   Updated: 2024/11/28 17:02:17 by csubires         ###   ########.fr       */
+/*   Updated: 2024/11/29 10:05:11 by csubires         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,13 @@ size_t	buildin_env(t_shell *shell, t_exec *exec_cmd)
 	while (tmp_list)
 	{
 		env_item = (t_envp *)tmp_list->data;
-		if (env_item && !no_args)
+		if (env_item && !no_args && env_item->value)
 			ft_fdprint(exec_cmd->out_fd, "%s=%s\n", \
 			env_item->key, env_item->value);
-		if (env_item && no_args)
+		if (env_item && no_args && !env_item->value)
+			ft_fdprint(exec_cmd->out_fd, "declare -x %s\n", \
+			env_item->key, env_item->value);
+		if (env_item && no_args && env_item->value)
 			ft_fdprint(exec_cmd->out_fd, "declare -x %s=%s\n", \
 			env_item->key, env_item->value);
 		tmp_list = tmp_list->next;

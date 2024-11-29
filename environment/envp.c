@@ -6,7 +6,7 @@
 /*   By: csubires <csubires@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 18:01:29 by csubires          #+#    #+#             */
-/*   Updated: 2024/11/16 12:15:21 by csubires         ###   ########.fr       */
+/*   Updated: 2024/11/29 09:14:05 by csubires         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,6 @@ t_envp	*create_env_item(char *key_value[])
 {
 	t_envp	*env_entry;
 
-	if (!key_value)
-		return (0);
 	env_entry = ft_calloc(1, sizeof(t_envp));
 	if (!env_entry)
 	{
