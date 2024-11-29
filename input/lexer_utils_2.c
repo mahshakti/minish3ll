@@ -6,7 +6,7 @@
 /*   By: csubires <csubires@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 16:44:58 by jesumore          #+#    #+#             */
-/*   Updated: 2024/11/29 13:15:41 by csubires         ###   ########.fr       */
+/*   Updated: 2024/11/29 19:28:24 by csubires         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,4 +71,32 @@ int	check_double_quote(t_shell *shell)
 		x++;
 	}
 	return (csimple % 2 != 0 || cdoble % 2 != 0);
+}
+
+void	repare_executable(t_exec *exec_cmd, t_dllist *tmp_list2)
+{
+	exec_cmd->executable = ft_strdup((char *)(tmp_list2)->data);
+	if (exec_cmd->executable[ft_strlen(exec_cmd->executable) - 1] \
+	== ' ')
+	{
+		exec_cmd->executable[ft_strlen(exec_cmd->executable) - 1] \
+		= '\0';
+		free(tmp_list2->data);
+		tmp_list2->data = ft_strdup(exec_cmd->executable);
+	}
+}
+
+void	set_redirect2(t_shell *shell, char *input, int *x)
+{
+	if (input[*x] == input[*x + 1])
+	{
+		token_to_dllist(shell, *x, *x + 2, ' ');
+		*x += 1;
+	}
+	else
+	{
+		input[*x] = ' ';
+		token_to_dllist(shell, *x, *x + 1, '\0');
+		(*x)++;
+	}
 }

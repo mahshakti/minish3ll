@@ -6,7 +6,7 @@
 /*   By: csubires <csubires@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 10:01:16 by csubires          #+#    #+#             */
-/*   Updated: 2024/11/29 13:54:22 by csubires         ###   ########.fr       */
+/*   Updated: 2024/11/29 18:59:04 by csubires         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,9 @@ static void	print_tokens(t_shell *shell, t_exec *exec_cmd)
 	while (tmp_list)
 	{
 		tmp_str = (char *)tmp_list->data;
-		if (!ft_strcmp(tmp_str, ""))
+		if (!ft_strcmp(tmp_str, " "))
 		{
+			ft_fdprint(exec_cmd->out_fd, " ");
 			tmp_list = tmp_list->next;
 			continue ;
 		}
@@ -55,9 +56,6 @@ static void	print_tokens(t_shell *shell, t_exec *exec_cmd)
 			tmp_str++;
 		ft_fdprint(exec_cmd->out_fd, "%s", tmp_str);
 		tmp_list = tmp_list->next;
-		if (tmp_str && !tmp_str[0] && tmp_list)
-			ft_fdprint(exec_cmd->out_fd, " ");
-
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: csubires <csubires@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 18:43:18 by csubires          #+#    #+#             */
-/*   Updated: 2024/11/28 21:52:46 by csubires         ###   ########.fr       */
+/*   Updated: 2024/11/29 18:26:49 by csubires         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static void	trim_executable(t_exec *exec_cmd, t_dllist **tmp_list)
 			tmp_list2 = tmp_list2->next;
 		else
 		{
-			exec_cmd->executable = ft_strdup((char *)(tmp_list2)->data);
+			repare_executable(exec_cmd, tmp_list2);
 			break ;
 		}
 		if (tmp_list2)

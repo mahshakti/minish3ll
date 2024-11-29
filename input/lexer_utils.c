@@ -6,7 +6,7 @@
 /*   By: csubires <csubires@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 18:50:55 by csubires          #+#    #+#             */
-/*   Updated: 2024/11/29 14:01:17 by csubires         ###   ########.fr       */
+/*   Updated: 2024/11/29 19:26:37 by csubires         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,22 +25,25 @@ static t_dllist	*create_token(t_shell *shell, char *str)
 void	token_to_dllist(t_shell *shell, int start, int end, char before_quote)
 {
 	t_dllist	*node;
-	t_dllist	*last_token;
 	char		*token_str;
-	char		*join_tokens;
+	char		*tmp_str;
 
 	if (before_quote == '=')
 	{
 		token_str = ft_substr(shell->input, start, end - start);
-		last_token = dlist_last(shell->token_list);
-		join_tokens = ft_strjoin(last_token->data, token_str);
-		free(last_token->data);
-		last_token->data = join_tokens;
+		node = dlist_last(shell->token_list);
+		tmp_str = ft_strjoin(node->data, token_str);
+		free(node->data);
+		node->data = tmp_str;
 		free(token_str);
 	}
 	else
 	{
-		if (shell->input[end] != '\0' && shell->input[end] == ' ')
+		tmp_str = 0;
+		if (shell->token_list && shell->token_list->data)
+			tmp_str = dlist_last(shell->token_list)->data;
+		if (tmp_str && !ft_strcmp(tmp_str, "echo") && \
+		shell->input[end] != '\0' && shell->input[end] == ' ')
 			end += 1;
 		token_str = ft_substr(shell->input, start, end - start);
 		node = create_token(shell, token_str);
@@ -70,6 +73,8 @@ void	set_redirect(t_shell *shell, char *input, int *x)
 			(*x)++;
 		}
 	}
+	else if (input[*x] == '\'' || input[*x] == '\"')
+		set_redirect2(shell, input, x);
 }
 
 int	isnt_metachar(char c)
