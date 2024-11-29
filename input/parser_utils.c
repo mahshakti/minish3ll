@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jesumore <jesumore@student.42.fr>          +#+  +:+       +#+        */
+/*   By: csubires <csubires@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 19:17:39 by csubires          #+#    #+#             */
-/*   Updated: 2024/11/21 15:24:23 by jesumore         ###   ########.fr       */
+/*   Updated: 2024/11/29 11:18:14 by csubires         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ static void	manage_input(t_exec *exec_cmd, t_dllist **token_ptr)
 				dlist_free((void **)&(exec_cmd->input_file));
 			*token_ptr = (*token_ptr)->next;
 			exec_cmd->heredoc_delimiter = ft_strdup((char *)(*token_ptr)->data);
+			if (exec_cmd->heredoc_delimiter[0] == '<')
+				return ((void)print_error(1, 0, ERR_TOKEN, "<"));
 			exec_cmd->heredoc_data = read_heredoc(exec_cmd->heredoc_delimiter);
 		}
 	}
@@ -71,8 +73,11 @@ static void	manage_output(t_exec *exec_cmd, t_dllist *token_ptr[])
 	if (!ft_strcmp((char *)(*token_ptr)->data, ">>"))
 		exec_cmd->append_to_fd = 1;
 	*token_ptr = (*token_ptr)->next;
-	exec_cmd->output_file = ft_strdup((char *)(*token_ptr)->data);
-	manage_output_fd(exec_cmd, 0);
+	if (!ft_strcmp((char *)(*token_ptr)->data, ">"))
+	{
+		exec_cmd->output_file = ft_strdup((char *)(*token_ptr)->data);
+		manage_output_fd(exec_cmd, 0);
+	}
 }
 
 void	manage_redirection(t_exec *exec_cmd, t_dllist *token_ptr[])

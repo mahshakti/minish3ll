@@ -6,7 +6,7 @@
 /*   By: csubires <csubires@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 16:44:58 by jesumore          #+#    #+#             */
-/*   Updated: 2024/11/28 22:15:55 by csubires         ###   ########.fr       */
+/*   Updated: 2024/11/29 13:15:41 by csubires         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 int	token_to_dllist_check(t_shell *shell)
 {
 	replace_with_envp(shell);
+	if (shell->error)
+		return (1);
 	if (split_tokens(shell, (char *)shell->input) == 1)
 	{
 		print_error(1, shell, ERR_FIRST_QUOTE, 0);
@@ -49,4 +51,24 @@ void	replace_value(t_shell *shell, int *x, char *key, char *value)
 		key = 0;
 	}
 	*x += len;
+}
+
+int	check_double_quote(t_shell *shell)
+{
+	int		x;
+	int		cdoble;
+	int		csimple;
+
+	x = 0;
+	cdoble = 0;
+	csimple = 0;
+	while (shell->input[x])
+	{
+		if (shell->input[x] == '\'')
+			csimple++;
+		if (shell->input[x] == '\"')
+			cdoble++;
+		x++;
+	}
+	return (csimple % 2 != 0 || cdoble % 2 != 0);
 }

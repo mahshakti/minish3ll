@@ -1,8 +1,8 @@
 
--[ ] leak export b
+- [X] leak export b
 
 - [ ] << >> minishell: end: command not found
-
+- [ ] contador comillas %2
 
 
 
@@ -236,3 +236,32 @@ utils.c->print_error
 		return (shell->exit_stat);
 	}
 	BYPASS */
+
+
+
+
+
+
+
+
+
+	int x = 0, cdoble = 0;
+	int csimple = 0;
+	char c;
+
+	while (shell->input[x])
+	{
+		c = shell->input[x++];
+
+		if (c == '\'')
+			csimple++;
+		if (c == '\"')
+			cdoble++;
+
+	}
+
+	if (csimple % 2 != 0 || cdoble % 2 != 0)
+	{
+		printf("FOOOOOOOOOOOOOOOOOO");
+	}
+

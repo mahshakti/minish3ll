@@ -6,7 +6,7 @@
 /*   By: csubires <csubires@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 16:20:22 by csubires          #+#    #+#             */
-/*   Updated: 2024/11/28 21:44:23 by csubires         ###   ########.fr       */
+/*   Updated: 2024/11/29 13:15:10 by csubires         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,6 +150,7 @@ int			isnt_metachar(char c);
 int			token_to_dllist_check(t_shell *shell);
 void		replace_value(t_shell *shell, int *x, char *key, \
 			char *value);
+int			check_double_quote(t_shell *shell);
 
 //			INPUT/PARSER.C
 void		exec_cmd_to_dllist(t_shell *shell);

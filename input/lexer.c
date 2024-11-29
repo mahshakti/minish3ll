@@ -6,7 +6,7 @@
 /*   By: csubires <csubires@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 18:39:58 by csubires          #+#    #+#             */
-/*   Updated: 2024/11/28 21:41:38 by csubires         ###   ########.fr       */
+/*   Updated: 2024/11/29 13:50:47 by csubires         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,10 @@ void	replace_with_envp(t_shell *shell)
 	int		flag;
 	int		x;
 
-	x = 0;
 	flag = 0;
+	if (check_double_quote(shell))
+		return ((void)print_error(1, shell, ERR_QUOT, 0));
+	x = 0;
 	while (shell->input[x])
 		manage_quotes(shell->input[x++], &flag);
 	x = 0;
@@ -109,8 +111,7 @@ void	tokens_to_dllist(t_shell *shell)
 		return ;
 	}
 	last_token = (char *)(dlist_last(shell->token_list)->data);
-	if (last_token && (last_token[0] != '\"') && \
-	(last_token[0] != '\'') && !isnt_metachar(last_token[0]))
+	if (!ft_strcmp(last_token, "|"))
 	{
 		print_error(1, shell, ERR_TOKEN, 0);
 		return ;

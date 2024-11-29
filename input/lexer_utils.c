@@ -6,7 +6,7 @@
 /*   By: csubires <csubires@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 18:50:55 by csubires          #+#    #+#             */
-/*   Updated: 2024/11/28 20:07:29 by csubires         ###   ########.fr       */
+/*   Updated: 2024/11/29 14:01:17 by csubires         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ void	token_to_dllist(t_shell *shell, int start, int end, char before_quote)
 	}
 	else
 	{
+		if (shell->input[end] != '\0' && shell->input[end] == ' ')
+			end += 1;
 		token_str = ft_substr(shell->input, start, end - start);
 		node = create_token(shell, token_str);
 		dlist_add_after(&(shell->token_list), node);
@@ -74,7 +76,7 @@ int	isnt_metachar(char c)
 {
 	char	*invalid_chars;
 
-	invalid_chars = "|\'\"";
+	invalid_chars = "|\"\'";
 	if (ft_strchr(invalid_chars, c))
 		return (0);
 	else if (!ft_isprint(c) || ft_isspace(c))
